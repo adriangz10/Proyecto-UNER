@@ -1,0 +1,55 @@
+<app-base>
+  <div class="bienvenida">
+    <h1>PANEL DE GESTION REPARTIDORES</h1>
+  </div>
+
+  <div class="tables-container">
+    <div class="table">
+      <h3>Transportes Pendientes</h3>
+      <p-table [value]="enviosPendientes" selectionMode="single" (onRowSelect)="transporteSeleccionado($event.data)"scrollable="true" scrollHeight="250px">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Direccion de entrega:</th>
+            <th>Descripcion:</th>
+            <th>Prioridad:</th>
+            <th>Finalizar:</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transporte>
+          <tr>
+            <td>{{ transporte.direccion }}</td>
+            <td>{{ transporte.descripcion }}</td>
+            <td>{{ transporte.prioridad }}</td>
+            <td><button pButton type="button" icon="pi pi-check" (click)="transporteSeleccionado(transporte)"></button></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="table">
+      <h3>Transportes Completados</h3>
+      <p-table [value]="enviosCompletados"  scrollable="true" scrollHeight="250px">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Paquete entregado en:</th>
+            <th>Paquete entregado por:</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transporte>
+          <tr>
+            <td>{{ transporte.direccion }}</td>
+            <td>{{ getNombreUsuario(transporte.id_usuario_modificacion) }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <app-transport-modal 
+    [transporte]="selectedTransport" 
+    [display]="displayModal" 
+    (onClose)="displayModal = false" 
+    (onComplete)="completeTransporte($event)">
+  </app-transport-modal>
+</app-base>

@@ -1,0 +1,34 @@
+<app-base>
+  <h1>PANEL DE GESTION ADMINISTRADOR</h1>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="container-options">
+        <div>
+          <button (click)="toggleView('crearActividad')" class="btn btn-primary">Nuevo Registro</button>
+        </div>
+        <div>
+          <button (click)="toggleView('mostrarActividades')" class="btn btn-primary">Paquetes</button>
+        </div>
+        <div>
+          <button (click)="toggleView('mostrarUsuarios')" class="btn btn-primary">Usuarios</button>
+        </div>
+        <div>
+          <button  class="btn btn-primary">Registro historico</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10"> 
+      <div *ngIf="mostrarCrearActividad">
+        <app-crear-actividad></app-crear-actividad>
+      </div>
+      <div *ngIf="mostrarActividades">
+        <tablActividadescomponent></tablActividadescomponent>
+      </div>
+      <div *ngIf="mostrarUsuarios">
+        <app-tabla-usuarios></app-tabla-usuarios>
+      </div>
+    </div>
+  </div>
+</app-base>
+
+

@@ -1,0 +1,7 @@
+.app-container {
+    margin: 0; /* Elimina cualquier margen predeterminado */
+    padding: 0; /* Elimina cualquier relleno predeterminado */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    height: 100vh; /* Asegura que el contenedor ocupe todo el alto disponible */
+    overflow: hidden; /* Opcional: oculta cualquier desbordamiento horizontal o vertical */
+  }

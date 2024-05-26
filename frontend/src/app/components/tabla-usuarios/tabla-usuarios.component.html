@@ -1,0 +1,52 @@
+<div class="search-container">
+    <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (input)="onSearch($event)">
+</div>
+
+<p-table [value]="usuarios" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Nombre Usuario</th>
+            <th>Rol</th>
+            <th>Zona</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-columns="columns">
+        <tr>
+            <td>
+                {{product.id}}
+            </td>
+            <td>
+                {{product.email}}
+            </td>
+            
+            <td>
+                {{product.apellidos}}
+            </td>
+            <td>
+                {{product.nombres}}
+            </td>
+            <td>
+                {{product.estado}}
+            </td>
+            <td>
+                {{product.nombreUsuario}}
+            </td>
+            <td>
+                {{product.rol}}
+            </td>
+            <td>
+                {{product.zona}}
+            </td>
+            <td>
+                <button class="btn btn-primary btn-sm">Editar</button>
+                <button class="btn btn-danger btn-sm" >Eliminar</button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
