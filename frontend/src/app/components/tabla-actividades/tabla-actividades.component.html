@@ -1,33 +1,46 @@
 <div class="search-container">
-    <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (input)="onSearch($event)">
+  <input
+    type="text"
+    [(ngModel)]="parametroBusqueda.id"
+    placeholder="Buscar por ID"
+    (input)="onSearch($event)"
+  />
 </div>
 
-<p-table [value]="actividad" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Prioridad</th>
-            <th>Estado</th>
-            <th>Zona</th>
-            <th>Dirección</th>
-            <th>Acciones</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product let-columns="columns">
-        <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.descripcion }}</td>
-            <td>
-                <p-tag [value]="product.prioridad" [severity]="getSeverity(product.prioridad)"></p-tag>
-            </td>
-            <td>{{ product.estado }}</td>
-            <td>{{ product.zona }}</td>
-            <td>{{ product.direccion }}</td>
-            <td>
-                <button class="btn btn-primary btn-sm">Editar</button>
-                <button class="btn btn-danger btn-sm" (click)="deleteActividad(product.id)">Eliminar</button>
-            </td>
-        </tr>
-    </ng-template>
+<p-table [value]="actividad" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Prioridad</th>
+      <th>Estado</th>
+      <th>Zona</th>
+      <th>Dirección</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product let-columns="columns">
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.descripcion }}</td>
+      <td>
+        <p-tag
+          [value]="product.prioridad"
+          [severity]="getSeverity(product.prioridad)"
+        ></p-tag>
+      </td>
+      <td>{{ product.estado }}</td>
+      <td>{{ product.zona }}</td>
+      <td>{{ product.direccion }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" (click)="editItem(product)">
+          Editar
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="deleteItem(product)">
+          Eliminar
+        </button>
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
+

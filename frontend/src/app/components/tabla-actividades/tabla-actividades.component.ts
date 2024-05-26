@@ -9,6 +9,11 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
+import { EditActividadDto } from '../../dtos/edit-actividad.dto';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 interface Column {
   field: string;
@@ -19,10 +24,17 @@ interface Column {
   selector: 'tablActividadescomponent',
   templateUrl: './tabla-actividades.component.html',
   standalone: true,
-  imports: [TableModule, TagModule, RatingModule, CommonModule, FormsModule],
+  imports: [TableModule, TagModule, RatingModule, CommonModule, FormsModule, DialogModule, ButtonModule, InputTextModule],
   providers: [ActivitiService],
 })
 export class TablaActividadesComponent implements OnInit {
+  mostrarEditarActividad = false;
+  visible: boolean = false;
+  actividadSeleccionada: any;
+  accion: string = '';
+  dialogVisible: boolean = false;
+  data: any[] = [];
+  esEditar: boolean = false;
   actividad!: Actividades[];
   cols!: Column[];
   parametroBusqueda: Busqueda = {
@@ -30,6 +42,7 @@ export class TablaActividadesComponent implements OnInit {
   };
 
   private searchSubject = new Subject<string>();
+modalShown: any;
 
   constructor(private activitiService: ActivitiService) {}
 
@@ -53,6 +66,10 @@ export class TablaActividadesComponent implements OnInit {
       this.actividad = Array.isArray(data) ? data : [data];
     });
     this.searchSubject.next('');
+  }
+
+  mostrarTabla() {
+    this.visible = true; 
   }
 
   getActividades(): void {
@@ -103,5 +120,58 @@ export class TablaActividadesComponent implements OnInit {
     };
 
     return severityMap[status] || undefined;
+  }
+
+  editItem(item: any) {
+    this.actividadSeleccionada = {
+      id: item.id,
+      descripcion: item.descripcion,
+      usuarioActual: item.usuarioActual,
+      prioridad: item.prioridad,
+      estado: item.estado
+    };
+    console.log(this.actividadSeleccionada);
+    this.accion = 'Editar';
+    this.dialogVisible = true;
+  }
+
+  deleteItem(item: any) {
+    this.activitiService.deleteActividad(item.id).subscribe(
+      () => {
+        this.actividad = this.actividad.filter(actividad => actividad.id !== item.id);
+        console.log('Actividad eliminada exitosamente');
+      },
+      error => {
+        console.error('Error al eliminar la actividad:', error);
+      }
+    );
+  }
+
+  onDialogClose(updatedItem: EditActividadDto) {
+    if (this.accion === 'Editar' && updatedItem) {
+      this.activitiService.actualizarActividad(updatedItem).subscribe((res:any) => {
+        const index = this.data.findIndex(activity => activity.id === res.id);
+        if (index !== -1) {
+          this.data[index] = res;
+        }
+        this.dialogVisible = false;
+        this.actividadSeleccionada = null;
+      });
+    }
+  }
+
+  guardarActividad() {
+    if (this.esEditar) {
+      this.activitiService.actualizarActividad(this.actividadSeleccionada).subscribe(
+        response => {
+          console.log('Actividad actualizada', response);
+          this.dialogVisible = false;
+          this.getActividades();  
+        },
+        error => {
+          console.error('Error al actualizar actividad', error);
+        }
+      );
+    } 
   }
 }

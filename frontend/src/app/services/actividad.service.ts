@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Paquete } from '../interface/paquete.interface';
+import { EditActividadDto } from '../dtos/edit-actividad.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,12 @@ export class ActivitiService {
 
   updateActividad(id: string, paquete: Paquete): Observable<any> {
     return this.http.post(`${this.apiUrl}/actividades/${id}`, paquete);
+  }
+
+  actualizarActividad(actividadDto: EditActividadDto): Observable<EditActividadDto> {
+    return this.http.put<EditActividadDto>( 
+      `${this.apiUrl}/actividades/${actividadDto.id}`, 
+      actividadDto
+    );
   }
 }

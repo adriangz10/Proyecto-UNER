@@ -13,7 +13,7 @@
           <button (click)="toggleView('mostrarUsuarios')" class="btn btn-primary">Usuarios</button>
         </div>
         <div>
-          <button  class="btn btn-primary">Registro historico</button>
+          <button (click)="toggleView('mostrarActividadAuditoria')" class="btn btn-primary">Registro historico</button>
         </div>
       </div>
     </div>
@@ -26,6 +26,9 @@
       </div>
       <div *ngIf="mostrarUsuarios">
         <app-tabla-usuarios></app-tabla-usuarios>
+      </div>
+      <div *ngIf="mostrarActividadAuditoria">
+        <app-actividadAuditoria></app-actividadAuditoria>
       </div>
     </div>
   </div>
