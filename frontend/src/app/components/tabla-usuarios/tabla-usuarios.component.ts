@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../interface/usuarios.interface';
+import { Usuario } from '../../interface/user.interface';
 import { UsuarioService } from '../../services/usuario.service';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -70,6 +70,12 @@ export class TablaUsuariosComponent implements OnInit {
     this.usuarioService.getUsuarios().subscribe((data) => {
       console.log(data);
       this.usuarios = data;
+    });
+  }
+
+  deleteActividad(id: string): void {
+    this.usuarioService.deleteUsuario(id).subscribe(() => {
+      this.usuarios = this.usuarios.filter((item) => item.id !== id);
     });
   }
 

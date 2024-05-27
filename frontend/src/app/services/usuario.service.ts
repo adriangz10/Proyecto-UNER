@@ -41,4 +41,8 @@ export class UsuarioService {
     return this.http.post(`${this.apiUrl}/usuarios`, usuario);
   }
 
+  deleteUsuario(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/usuarios/${id}`);
+  }
+
 }
