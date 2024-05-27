@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ZonaEnum } from '../enums/zona.enum';
+import { map } from 'rxjs/operators';
+import { Usuario } from '../interface/usuarios.interface';
 
 
 @Injectable({
@@ -29,5 +31,14 @@ export class UsuarioService {
       .pipe((res) => res);
   }
 
+  getUsuariosRol(): Observable<string[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios`).pipe(
+      map((usuarios: any[]) => usuarios.map(usuario => usuario.rol))
+    );
+  }
+
+  createUsuario(usuario: Usuario): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios`, usuario);
+  }
 
 }

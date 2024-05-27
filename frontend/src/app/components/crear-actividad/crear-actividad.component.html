@@ -1,7 +1,6 @@
 <div class="card flex justify-content-center">
     <p-dialog header="REGISTRO DE PAQUETES" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
       <span class="p-text-secondary block mb-5">Registre Su Nuevo Paquete</span>
-  
       <form #paqueteForm="ngForm" (ngSubmit)="guardarPaquete(paqueteForm)">
         <div class="flex align-items-center gap-3 mb-3">
           <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
@@ -33,7 +32,6 @@
             <option *ngFor="let usuario of usuariosZona" [value]="usuario.id">{{ usuario.nombres }}</option>
           </select>
         </div>
-        
   
         <div class="flex justify-content-end gap-2">
           <p-button label="Cancelar" severity="secondary" (click)="visible = false" />

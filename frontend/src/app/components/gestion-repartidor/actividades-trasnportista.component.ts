@@ -33,13 +33,6 @@ export class ActividadesTransportistaComponent implements OnInit {
   selectedTransport: Transporte | null = null;
   displayModal: boolean = false;
 
-  MapeoUsuario:{[key: number]: string} = {
-    1: "Carlos Zampedri",
-    2: "Federico Fein",
-    3: "Facundo Peres",
-    5: "Jesus Figueredo",
-  }
-
   constructor(private transporteService: transporteService) {}
 
   ngOnInit() {
@@ -79,7 +72,4 @@ export class ActividadesTransportistaComponent implements OnInit {
     return this.transportes.filter(t => t.estado === 'finalizado');
   }
 
-  getNombreUsuario(id: number): string {
-    return this.MapeoUsuario[id] || "Desconocido";
-  }
 }

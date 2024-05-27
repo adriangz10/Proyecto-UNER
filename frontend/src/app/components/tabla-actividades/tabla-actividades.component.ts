@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
-import { EditActividadDto } from '../../dtos/edit-actividad.dto';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -28,6 +27,10 @@ interface Column {
   providers: [ActivitiService],
 })
 export class TablaActividadesComponent implements OnInit {
+  descripcion: string = '';
+  prioridad: string = '';
+  direccion: string = '';
+  zona: string = '';
   mostrarEditarActividad = false;
   visible: boolean = false;
   actividadSeleccionada: any;
@@ -43,6 +46,7 @@ export class TablaActividadesComponent implements OnInit {
 
   private searchSubject = new Subject<string>();
 modalShown: any;
+estado: any;
 
   constructor(private activitiService: ActivitiService) {}
 
@@ -89,6 +93,10 @@ modalShown: any;
     });
   }
 
+  guardarActividad(form: any): void {
+
+  }
+    
   onSearch(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.searchSubject.next(inputElement.value);
@@ -122,56 +130,16 @@ modalShown: any;
     return severityMap[status] || undefined;
   }
 
-  editItem(item: any) {
-    this.actividadSeleccionada = {
-      id: item.id,
-      descripcion: item.descripcion,
-      usuarioActual: item.usuarioActual,
-      prioridad: item.prioridad,
-      estado: item.estado
-    };
-    console.log(this.actividadSeleccionada);
-    this.accion = 'Editar';
-    this.dialogVisible = true;
+  openModa() {
+    this.visible = true
   }
 
-  deleteItem(item: any) {
-    this.activitiService.deleteActividad(item.id).subscribe(
-      () => {
-        this.actividad = this.actividad.filter(actividad => actividad.id !== item.id);
-        console.log('Actividad eliminada exitosamente');
-      },
-      error => {
-        console.error('Error al eliminar la actividad:', error);
-      }
-    );
+  editar(data: Actividades) {
+    this.descripcion = data.descripcion
+    this.prioridad = data.prioridad
+    this.zona = data.zona
+    this.direccion = data.direccion
+    this.visible = true
   }
-
-  onDialogClose(updatedItem: EditActividadDto) {
-    if (this.accion === 'Editar' && updatedItem) {
-      this.activitiService.actualizarActividad(updatedItem).subscribe((res:any) => {
-        const index = this.data.findIndex(activity => activity.id === res.id);
-        if (index !== -1) {
-          this.data[index] = res;
-        }
-        this.dialogVisible = false;
-        this.actividadSeleccionada = null;
-      });
-    }
-  }
-
-  guardarActividad() {
-    if (this.esEditar) {
-      this.activitiService.actualizarActividad(this.actividadSeleccionada).subscribe(
-        response => {
-          console.log('Actividad actualizada', response);
-          this.dialogVisible = false;
-          this.getActividades();  
-        },
-        error => {
-          console.error('Error al actualizar actividad', error);
-        }
-      );
-    } 
-  }
+  
 }

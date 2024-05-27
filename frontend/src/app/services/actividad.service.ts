@@ -32,10 +32,4 @@ export class ActivitiService {
     return this.http.post(`${this.apiUrl}/actividades/${id}`, paquete);
   }
 
-  actualizarActividad(actividadDto: EditActividadDto): Observable<EditActividadDto> {
-    return this.http.put<EditActividadDto>( 
-      `${this.apiUrl}/actividades/${actividadDto.id}`, 
-      actividadDto
-    );
-  }
 }

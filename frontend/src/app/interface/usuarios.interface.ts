@@ -4,7 +4,7 @@ export interface Usuario {
     apellidos?: string;
     nombreUsuario?: string;
     email?: string;
-    clave?: number;
+    clave?: string;
     rol?: 'administrador' | 'repartidor';
     zona?: 'a' | 'b' | 'c';
 }

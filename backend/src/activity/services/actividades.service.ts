@@ -1,7 +1,7 @@
 // Servicio para manejar la lógica de negocio relacionada con las actividades
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { EstadoActividadEnum } from '../enus/estado.actividades.enus';
 import { ActividadesDto } from '../dtos/actividadesdto';
 import { Actividad } from '../entitys/actividad.entity';
@@ -18,7 +18,7 @@ export class ActividadesService {
   }
 
   findAll(): Promise<Actividad[]> {
-    return this.actividadesRepository.find();
+    return this.actividadesRepository.find({ where: { estado: Not(EstadoActividadEnum.eliminado) } });
   }
 
   findOne(id: number): Promise<Actividad> {

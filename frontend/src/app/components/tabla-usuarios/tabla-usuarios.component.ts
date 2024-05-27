@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { Busqueda } from '../../interface/busqueda';
 import { Subject, debounceTime, switchMap } from 'rxjs';
+import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 interface Column {
   field: string;
@@ -17,13 +20,15 @@ interface Column {
 @Component({
   selector: 'app-tabla-usuarios',
   standalone: true,
-  imports: [TableModule, TagModule, CommonModule, FormsModule, RatingModule],
+  imports: [TableModule, TagModule, CommonModule, FormsModule, RatingModule, CrearUsuarioComponent, DialogModule, ButtonModule],
   templateUrl: './tabla-usuarios.component.html',
   styleUrl: './tabla-usuarios.component.css'
 })
 
 export class TablaUsuariosComponent implements OnInit {
   usuarios!: Usuario[];
+
+  mostrarCrearUsuario = false;
 
   cols!: Column[];
 
@@ -33,7 +38,9 @@ export class TablaUsuariosComponent implements OnInit {
 
   private searchSubject = new Subject<string>();
 
-  constructor(private usuarioService: UsuarioService) { }
+  visible: boolean = false;
+
+  constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
 
@@ -70,4 +77,9 @@ export class TablaUsuariosComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.searchSubject.next(inputElement.value);
   }
+
+  mostrarModalCrearUsuario(): void {
+    this.mostrarCrearUsuario = true;
+  }
+
 }

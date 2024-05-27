@@ -40,7 +40,6 @@ export class UsuariosController {
     @UseGuards(AuthGuard)
     @Get('/repartidor/:zonarep')
         async getRepartidoreszona(@Param('zonarep')zonarep:ZonaEnum){
-            console.log(zonarep)
             return await this.UsuarioService.obtenerUsuariosPorZona(zonarep);
         }       
 
@@ -48,7 +47,6 @@ export class UsuariosController {
     @UseGuards(AuthGuard)
     @Get(':id')
     async finOneById(@Param('id') id:number): Promise <Usuario>{
-        console.log(id)
         return await this.UsuarioService.findOneById(id)
     }
 
