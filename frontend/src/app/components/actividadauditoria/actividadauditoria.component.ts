@@ -45,8 +45,6 @@ export class ActividadAuditoriaComponent {
       console.error('Error al obtener las actividades de auditoría:', error);
     });
   } 
-
-  
   
   convertirAFormatoTexto(data: ActividadAuditoria[]): string {
     let textoFormateado = '';

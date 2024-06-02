@@ -14,20 +14,20 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
   
-  getUsuarios(): Observable<any> {
+  getUsuarios(): Observable<Usuario[]> {
     return this.http
-      .get(`${this.apiUrl}/usuarios`)
+      .get<Usuario[]>(`${this.apiUrl}/usuarios`)
       .pipe((res) => res);
   }
 
-  getUsuariosId(id: string): Observable<any> {
+  getUsuariosId(id: string): Observable<Usuario[]> {
     return this.http
-      .get(`${this.apiUrl}/usuarios/${id}`)
+      .get<Usuario[]>(`${this.apiUrl}/usuarios/${id}`)
       .pipe((res) => res);
   }
-  getUsuariosZona(zona: ZonaEnum): Observable<any> {
+  getUsuariosZona(zona: ZonaEnum): Observable<Usuario[]> {
     return this.http
-      .get(`${this.apiUrl}/usuarios/repartidor/${zona}`)
+      .get<Usuario[]>(`${this.apiUrl}/usuarios/repartidor/${zona}`)
       .pipe((res) => res);
   }
 
@@ -37,12 +37,12 @@ export class UsuarioService {
     );
   }
 
-  createUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuarios`, usuario);
+  createUsuario(usuario: Usuario): Observable<Usuario[]> {
+    return this.http.post<Usuario[]>(`${this.apiUrl}/usuarios`, usuario);
   }
 
-  deleteUsuario(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/usuarios/${id}`);
+  deleteUsuario(id: number): Observable<Usuario[]> {
+    return this.http.delete<Usuario[]>(`${this.apiUrl}/usuarios/${id}`);
   }
 
 }

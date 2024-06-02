@@ -1,9 +1,9 @@
 export interface Actividades {
-    id?: string;
+    id: string;
     descripcion: string;
     prioridad: 'baja' | 'media' | 'alta';
     description: string;
-    estado: string;
-    zona: string;
+    estado: 'pendiente' | 'finalizado' | 'eliminado';
+    zona: 'a' | 'b' | 'c';
     direccion: string;
 }

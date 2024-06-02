@@ -16,9 +16,9 @@ export class LoginService {
   private apiURL = 'http://localhost:3000/';
 
   constructor(private _http: HttpClient , private router: Router) { 
-  //   window.addEventListener('beforeunload', () => {
-  //   this.logout();
-  // }); 
+    window.addEventListener('beforeunload', () => {
+    this.logout();
+  }); 
 }
 
   login(usuario: string, clave: string): Observable<{ token: string }> {

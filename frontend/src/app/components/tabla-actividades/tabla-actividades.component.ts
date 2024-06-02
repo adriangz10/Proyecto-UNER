@@ -13,7 +13,6 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
-
 interface Column {
   field: string;
   header: string;
@@ -23,7 +22,16 @@ interface Column {
   selector: 'tablActividadescomponent',
   templateUrl: './tabla-actividades.component.html',
   standalone: true,
-  imports: [TableModule, TagModule, RatingModule, CommonModule, FormsModule, DialogModule, ButtonModule, InputTextModule],
+  imports: [
+    TableModule,
+    TagModule,
+    RatingModule,
+    CommonModule,
+    FormsModule,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+  ],
   providers: [ActivitiService],
 })
 export class TablaActividadesComponent implements OnInit {
@@ -45,8 +53,8 @@ export class TablaActividadesComponent implements OnInit {
   };
 
   private searchSubject = new Subject<string>();
-modalShown: any;
-estado: any;
+  modalShown: any;
+  estado: any;
 
   constructor(private activitiService: ActivitiService) {}
 
@@ -63,26 +71,32 @@ estado: any;
       { field: 'acciones', header: 'Acciones' },
     ];
 
-    this.searchSubject.pipe(
-      debounceTime(300),
-      switchMap(id => id ? this.activitiService.getAuditoriasId(id) : this.activitiService.getAuditorias())
-    ).subscribe((data) => {
-      this.actividad = Array.isArray(data) ? data : [data];
-    });
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        switchMap((id) =>
+          id
+            ? this.activitiService.getActividadesId(id)
+            : this.activitiService.getActividades()
+        )
+      )
+      .subscribe((data) => {
+        this.actividad = Array.isArray(data) ? data : [data];
+      });
     this.searchSubject.next('');
   }
 
   mostrarTabla() {
-    this.visible = true; 
+    this.visible = true;
   }
 
   getActividades(): void {
-    this.activitiService.getAuditorias().subscribe((data) => {
+    this.activitiService.getActividades().subscribe((data: Actividades[]) => {
       this.actividad = data
-        .filter((item: { Estado: string }) => item.Estado !== 'eliminado')
-        .map((item: { Prioridad: string }) => ({
+        .filter((item: Actividades) => item.estado !== 'eliminado')
+        .map((item: Actividades) => ({
           ...item,
-          severity: this.getSeverity(item.Prioridad),
+          severity: this.getSeverity(item.prioridad),
         }));
     });
   }
@@ -93,10 +107,8 @@ estado: any;
     });
   }
 
-  guardarActividad(form: any): void {
+  guardarActividad(form: any): void {}
 
-  }
-    
   onSearch(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.searchSubject.next(inputElement.value);
@@ -131,15 +143,14 @@ estado: any;
   }
 
   openModa() {
-    this.visible = true
+    this.visible = true;
   }
 
   editar(data: Actividades) {
-    this.descripcion = data.descripcion
-    this.prioridad = data.prioridad
-    this.zona = data.zona
-    this.direccion = data.direccion
-    this.visible = true
+    this.descripcion = data.descripcion;
+    this.prioridad = data.prioridad;
+    this.zona = data.zona;
+    this.direccion = data.direccion;
+    this.visible = true;
   }
-  
 }
