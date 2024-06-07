@@ -41,6 +41,7 @@ export class TablaActividadesComponent implements OnInit {
   zona: string = '';
   mostrarEditarActividad = false;
   visible: boolean = false;
+
   actividadSeleccionada: any;
   accion: string = '';
   dialogVisible: boolean = false;
@@ -149,6 +150,7 @@ export class TablaActividadesComponent implements OnInit {
   editar(data: Actividades) {
     this.descripcion = data.descripcion;
     this.prioridad = data.prioridad;
+    this.estado = data.estado;
     this.zona = data.zona;
     this.direccion = data.direccion;
     this.visible = true;
