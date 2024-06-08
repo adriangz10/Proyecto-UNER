@@ -28,7 +28,8 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/pdfmake/build/pdfmake.js",
+            "node_modules/pdfmake/build/vfs_fonts.js"]
           },
           "configurations": {
             "production": {

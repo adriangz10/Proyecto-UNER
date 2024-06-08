@@ -52,7 +52,7 @@ export class LoginService {
     if (!token) {
       return false;
     }
-    return new JwtHelperService().decodeToken(token).rol === rol;
+    return new JwtHelperService().decodeToken().rol === rol;
   }
 
   logout() {
