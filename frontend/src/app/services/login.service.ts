@@ -6,34 +6,24 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { Token } from '@angular/compiler';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
-
   private apiURL = 'http://localhost:3000/';
 
-  constructor(private _http: HttpClient , private router: Router) { 
+  constructor(private _http: HttpClient, private router: Router) {
     window.addEventListener('beforeunload', () => {
-    this.logout();
-  }); 
-}
-
-  login(usuario: string, clave: string): Observable<{ token: string }> {
-
-    return this._http.post<{ token: string }>( 
-      `${this.apiURL}auth`,
-      {
-        usuario,
-        clave,
-      }
-      
-    );
-    
+      this.logout();
+    });
   }
 
+  login(usuario: string, clave: string): Observable<{ token: string }> {
+    return this._http.post<{ token: string }>(`${this.apiURL}auth`, {
+      usuario,
+      clave,
+    });
+  }
 
   setSession(token: string) {
     sessionStorage.setItem('token', token);
@@ -59,5 +49,4 @@ export class LoginService {
     sessionStorage.removeItem('token');
     this.router.navigateByUrl('login');
   }
-  
 }
