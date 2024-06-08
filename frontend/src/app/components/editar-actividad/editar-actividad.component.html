@@ -1,0 +1,28 @@
+<p-dialog [(visible)]="visible" modal="true" [baseZIndex]="10000" styleClass="width: 500px;">
+  <h2>Editar Actividad</h2>
+  <form [formGroup]="form" (ngSubmit)="guardarActividad()">
+    <div class="activity-details">
+      <div class="input-group">
+        <label for="descripcion">Descripción:</label>
+        <input id="descripcion" type="text" formControlName="descripcion" pInputText />
+      </div>
+      <div class="input-group">
+        <label for="prioridad">Prioridad:</label>
+        <input id="prioridad" type="text" formControlName="prioridad" pInputText />
+      </div>
+      <div class="input-group">
+        <label for="zona">Zona:</label>
+        <input id="zona" type="text" formControlName="zona" pInputText />
+      </div>
+      <div class="input-group">
+        <label for="direccion">Dirección:</label>
+        <input id="direccion" type="text" formControlName="direccion" pInputText />
+      </div>
+    </div>
+    <div class="button-group">
+      <button pButton type="submit" label="Guardar"></button>
+      <button pButton type="button" label="Cancelar" (click)="visible = false"></button>
+    </div>
+  </form>
+</p-dialog>
+

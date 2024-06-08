@@ -1,90 +1,29 @@
-<div class="search-container">
-  <input
-    type="text"
-    [(ngModel)]="parametroBusqueda.id"
-    placeholder="Buscar por ID"
-    (input)="onSearch($event)"
-  />
+<div *ngIf="actividades">
+  <p-table [value]="actividades">
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols">
+          {{ col.header }}
+        </th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of cols">
+          {{ rowData[col.field] }}
+        </td>
+        <td>
+          <button pButton type="button" icon="pi pi-pencil" (click)="editarActividad(rowData)"></button>
+          <button pButton type="button" icon="pi pi-trash" (click)="confirmarEliminarActividad(rowData.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
-<p-table [value]="actividad" [tableStyle]="{ 'min-width': '50rem' }">
-  <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th>ID</th>
-      <th>Descripción</th>
-      <th>Prioridad</th>
-      <th>Estado</th>
-      <th>Zona</th>
-      <th>Dirección</th>
-      <th>Acciones</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-product let-columns="columns">
-    <tr>
-      <td>{{ product.id }}</td>
-      <td>{{ product.descripcion }}</td>
-      <td>
-        <p-tag
-          [value]="product.prioridad"
-          [severity]="getSeverity(product.prioridad)"
-        ></p-tag>
-      </td>
-      <td>{{ product.estado }}</td>
-      <td>{{ product.zona }}</td>
-      <td>{{ product.direccion }}</td>
-      <td>
-        <button class="btn btn-primary btn-sm" (click)="editar(product)">
-          Editar
-        </button>
-        <button class="btn btn-danger btn-sm" (click)="deleteActividad(product)">
-          Eliminar
-        </button>
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
-
-<div class="card flex justify-content-center">
-  <p-dialog header="REGISTRO DE PAQUETES" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-5">Registre Su Nuevo Paquete</span>
-    <form #paqueteForm="ngForm" >
-      <div class="flex align-items-center gap-3 mb-3">
-        <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
-        <input pInputText id="descripcion" name="descripcion" class="flex-auto" [(ngModel)]="descripcion" autocomplete="off" required />
-      </div>
-      <div class="flex align-items-center gap-3 mb-5">
-        <label for="prioridad" class="font-semibold w-6rem">Prioridad</label>
-        <select pInputText id="prioridad" name="prioridad" class="flex-auto" [(ngModel)]="prioridad" autocomplete="off" required>
-          <option value="alta">Alta</option>
-          <option value="media">Media</option>
-          <option value="baja">Baja</option>
-        </select>
-      </div>
-      <div class="flex align-items-center gap-3 mb-5">
-        <label for="estado" class="font-semibold w-6rem">Estado</label>
-        <select pInputText id="estado" name="estado" class="flex-auto" [(ngModel)]="estado" autocomplete="off" required > 
-          <option value="pendiente"> Pendiente</option>
-          <option value="finalizado"> Finalizado</option>
-          <option value="eliminado"> Eliminado</option>
-        </select>
-      </div>
-      <div class="flex align-items-center gap-3 mb-5">
-        <label for="zona" class="font-semibold w-6rem">Zona</label>
-        <select pInputText id="zona" name="zona" class="flex-auto" [(ngModel)]="zona" autocomplete="off" required > 
-          <option value="a"> A</option>
-          <option value="b"> B</option>
-          <option value="c"> C</option>
-        </select>
-      </div>
-      <div class="flex align-items-center gap-3 mb-5">
-        <label for="direccion" class="font-semibold w-6rem">Dirección</label>
-        <input pInputText id="direccion" name="direccion" class="flex-auto" [(ngModel)]="direccion" autocomplete="off" required />
-      </div>
-
-      <div class="flex justify-content-end gap-2">
-        <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
-        <p-button type="submit" label="Guardar" [disabled]="paqueteForm.invalid" />
-      </div>
-    </form>
-  </p-dialog>
-</div>
+<app-editar-actividad
+  [(visible)]="mostrarEditarActividad"
+  [actividad]="actividadSeleccionada"
+  (actividadEditada)="onActividadEditada()">
+</app-editar-actividad>

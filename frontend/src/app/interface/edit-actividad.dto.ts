@@ -1,6 +1,6 @@
 import { EstadoActividadEnum } from "../enums/estado.actividades.enus";
 import { PrioridadActividadEnum } from "../enums/prioridad.actividad.enum";
-import { Usuario } from "./usuario.interface";
+import { Usuario } from "./usuarios.interface";
 
 
 export interface EditActividadDto {

@@ -28,4 +28,9 @@ export class ActivitiService {
     return this.http.delete<Actividades[]>(`${this.apiUrl}/actividades/${id}`);
   }
 
+  updateActividad(id: string, actividad: Actividades): Observable<any> {
+    const url = `${this.apiUrl}/actividades/${id}`;
+    return this.http.put(url, actividad);
+  }
+
 }
