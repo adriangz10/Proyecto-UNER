@@ -45,7 +45,7 @@
                 {{product.zona}}
             </td>
             <td>
-                <button class="btn btn-primary btn-sm" >Editar</button>
+                <button class="btn btn-primary btn-sm" (click)="updateUsuario(product)">Editar</button>
                 <button class="btn btn-danger btn-sm" (click)="deleteActividad(product.id)">Eliminar</button>
             </td>
         </tr>
@@ -54,4 +54,6 @@
 <p-dialog [(visible)]="mostrarCrearUsuario" [modal]="true" [style]="{ width: '40rem', height: '50rem' }">
     <app-crear-usuario></app-crear-usuario>
 </p-dialog>
-
+<p-dialog [(visible)]="mostrarEditarUsuario" [modal]="true" [style]="{ width: '40rem', height: '50rem' }">
+    <app-editar-usuario [usuario]="usuarioSeleccionado" (usuarioEditado)="onUsuarioEditado()"></app-editar-usuario>
+</p-dialog>

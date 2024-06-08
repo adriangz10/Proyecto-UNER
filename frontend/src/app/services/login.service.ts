@@ -49,4 +49,12 @@ export class LoginService {
     sessionStorage.removeItem('token');
     this.router.navigateByUrl('login');
   }
+
+  getUserId(): string | null {    
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+    return new JwtHelperService().decodeToken(token).sub;
+  }
 }

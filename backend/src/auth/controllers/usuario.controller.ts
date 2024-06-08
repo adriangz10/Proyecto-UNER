@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
 import { UsuarioService } from "../../auth/services/usuario.service";
 import { Roles } from "../../auth/decorators/roles.decorators";
 import { AuthGuard } from "../../auth/guards/auth.guard";
@@ -43,7 +43,7 @@ export class UsuariosController {
             return await this.UsuarioService.obtenerUsuariosPorZona(zonarep);
         }       
 
-    @Roles([RolesEnum.administrador])
+    @Roles([RolesEnum.administrador, RolesEnum.repartidor])
     @UseGuards(AuthGuard)
     @Get(':id')
     async finOneById(@Param('id') id:number): Promise <Usuario>{
@@ -53,8 +53,8 @@ export class UsuariosController {
     @Roles([RolesEnum.administrador])
     @UseGuards(AuthGuard)
     @Post()
-    async createUsuario(@Body() createUserDto: CreateUserDto) { // Usar el DTO para crear usuario
-    return await this.UsuarioService.crearUsuario(createUserDto); // Llamar al método correspondiente en el servicio
+    async createUsuario(@Body() createUserDto: CreateUserDto) {
+    return await this.UsuarioService.crearUsuario(createUserDto);
     }
 
 

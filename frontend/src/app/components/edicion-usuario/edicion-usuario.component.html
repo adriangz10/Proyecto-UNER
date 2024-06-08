@@ -1,0 +1,40 @@
+<!-- editar-usuario.component.html -->
+<div class="modal-header">
+    <h4 class="modal-title">Editar Usuario</h4>
+</div>
+<div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="guardar()">
+        <div class="form-group">
+            <label for="nombres">Nombres:</label>
+            <input type="text" class="form-control" id="nombres" formControlName="nombres">
+        </div>
+        <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" class="form-control" id="apellidos" formControlName="apellidos">
+        </div>
+        <div class="form-group">
+            <label for="nombreUsuario">Nombre de Usuario:</label>
+            <input type="text" class="form-control" id="nombreUsuario" formControlName="nombreUsuario">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+        </div>
+        <div class="form-group">
+            <label for="rol">Rol:</label>
+            <select class="form-control" id="rol" formControlName="rol">
+                <option value="administrador">Administrador</option>
+                <option value="repartidor">Repartidor</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="zona">Zona:</label>
+            <select class="form-control" id="zona" formControlName="zona">
+                <option value="a">A</option>
+                <option value="b">B</option>
+                <option value="c">C</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>

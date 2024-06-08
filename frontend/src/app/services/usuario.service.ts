@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ZonaEnum } from '../enums/zona.enum';
@@ -14,20 +14,20 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) {}
   
-  getUsuarios(): Observable<Usuario[]> {
+  getUsuarios(): Observable<any> {
     return this.http
-      .get<Usuario[]>(`${this.apiUrl}/usuarios`)
+      .get(`${this.apiUrl}/usuarios`)
       .pipe((res) => res);
   }
 
-  getUsuariosId(id: string): Observable<Usuario[]> {
+  getUsuariosId(id: string): Observable<any> {
     return this.http
-      .get<Usuario[]>(`${this.apiUrl}/usuarios/${id}`)
+      .get(`${this.apiUrl}/usuarios/${id}`)
       .pipe((res) => res);
   }
-  getUsuariosZona(zona: ZonaEnum): Observable<Usuario[]> {
+  getUsuariosZona(zona: ZonaEnum): Observable<any> {
     return this.http
-      .get<Usuario[]>(`${this.apiUrl}/usuarios/repartidor/${zona}`)
+      .get(`${this.apiUrl}/usuarios/repartidor/${zona}`)
       .pipe((res) => res);
   }
 
@@ -37,12 +37,20 @@ export class UsuarioService {
     );
   }
 
-  createUsuario(usuario: Usuario): Observable<Usuario[]> {
-    return this.http.post<Usuario[]>(`${this.apiUrl}/usuarios`, usuario);
+  createUsuario(usuario: Usuario): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios`, usuario);
   }
 
-  deleteUsuario(id: number): Observable<Usuario[]> {
-    return this.http.delete<Usuario[]>(`${this.apiUrl}/usuarios/${id}`);
+  deleteUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/usuarios/${id}`);
   }
 
+  updateUsuario(usuario: Usuario): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuarios/${usuario.id}`, usuario);
+  }
+
+  getUsuarioById(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/usuarios/${id}`);
+  }
+  
 }
