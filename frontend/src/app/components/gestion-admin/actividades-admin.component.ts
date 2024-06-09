@@ -30,7 +30,6 @@ export class GestionAdminComponent implements OnInit {
   mostrarActividades = false;
   mostrarUsuarios = false;
   mostrarActividadAuditoria=false
-  currentUser: Usuario | null = null;
   userName: string | undefined;
 
   constructor(
