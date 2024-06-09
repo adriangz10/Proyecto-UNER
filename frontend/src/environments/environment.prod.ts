@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'http://actividades.internal/api',
+    apiUrl: 'http://actividades.internal/',
   };
