@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { RolesEnum } from '../enums/roles.enum';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { Token } from '@angular/compiler';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiURL = 'http://localhost:3000/';
+  private apiURL = environment;
 
   constructor(private _http: HttpClient, private router: Router) {
     window.addEventListener('beforeunload', () => {

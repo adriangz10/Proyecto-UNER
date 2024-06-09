@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Paquete } from '../interface/paquete.interface';
 import { Actividades } from '../interface/actividades.interface';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActivitiService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment;
 
   constructor(private http: HttpClient) {}
 

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Transporte } from '../interface/transport.interface';
+import { environment } from '../../environments/environment.prod';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class transporteService {
-  private apiUrl = 'http://localhost:3000'; // URL del backend
+  private apiUrl = environment; // URL del backend
 
   constructor(private http: HttpClient) { }
 

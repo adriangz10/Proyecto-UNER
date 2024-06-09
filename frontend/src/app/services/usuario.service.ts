@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { ZonaEnum } from '../enums/zona.enum';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../interface/usuarios.interface';
+import { environment } from '../../environments/environment.prod';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment;
 
   constructor(private http: HttpClient) {}
   

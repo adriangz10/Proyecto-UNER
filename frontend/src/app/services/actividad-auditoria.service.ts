@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActividadAuditoria } from '../interface/actividad-uditoria.interface';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActividadAuditoriaService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = environment;
 
   constructor(private http: HttpClient) {}
 
