@@ -26,3 +26,13 @@
   .btn-primary{
     margin-bottom: 20px;
   }
+
+  .bienvenido {
+    font-size: 24px; /* Tamaño de fuente más grande */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color de texto */
+    margin-bottom: 10px; /* Espacio en la parte inferior */
+    border-bottom: 1px solid #ccc; /* Borde inferior */
+    padding-bottom: 5px; /* Espacio debajo del texto */
+  }
+  

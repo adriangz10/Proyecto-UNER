@@ -6,6 +6,9 @@ import { TablaActividadesComponent } from '../tabla-actividades/tabla-actividade
 import { CrearActividadComponent } from '../crear-actividad/crear-actividad.component';
 import { TablaUsuariosComponent } from '../tabla-usuarios/tabla-usuarios.component';
 import { ActividadAuditoriaComponent } from '../actividadauditoria/actividadauditoria.component';
+import { Usuario } from '../../interface/usuarios.interface';
+import { UsuarioService } from '../../services/usuario.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-actividades-admin',
@@ -27,10 +30,18 @@ export class GestionAdminComponent implements OnInit {
   mostrarActividades = false;
   mostrarUsuarios = false;
   mostrarActividadAuditoria=false
+  currentUser: Usuario | null = null;
+  userName: string | undefined;
 
-  constructor() {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private loginService: LoginService,
+    ) {
+    }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.showUserInfo();
+  }
 
   toggleView(view: string) {
     switch(view) {
@@ -60,6 +71,20 @@ export class GestionAdminComponent implements OnInit {
         break;
       default:
         break;
+    }
+  }
+
+  showUserInfo() {
+    const userId = this.loginService.getUserId();
+    if (userId) {
+      this.usuarioService.getUsuarioById(userId).subscribe({
+        next: (usuario) => {
+          this.userName = usuario.nombres;
+        },
+        error: (err) => {
+          console.error('Error fetching user data', err);
+        }
+      });
     }
   }
   
