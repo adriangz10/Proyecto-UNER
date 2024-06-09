@@ -4,13 +4,12 @@ import { Observable } from 'rxjs';
 import { RolesEnum } from '../enums/roles.enum';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiURL = environment;
 
   constructor(private _http: HttpClient, private router: Router) {
     window.addEventListener('beforeunload', () => {
@@ -19,7 +18,7 @@ export class LoginService {
   }
 
   login(usuario: string, clave: string): Observable<{ token: string }> {
-    return this._http.post<{ token: string }>(`${this.apiURL}auth`, {
+    return this._http.post<{ token: string }>(`${environment.apiUrl}/auth`, {
       usuario,
       clave,
     });
