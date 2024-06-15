@@ -3,6 +3,7 @@
   <div class="row">
     <div class="col-md-2">
       <div class="container-options">
+        <p class="bienvenido">Bienvenido, {{ userName }}</p>
         <div>
           <button (click)="toggleView('crearActividad')" class="btn btn-primary">Nuevo Registro</button>
         </div>
@@ -22,7 +23,7 @@
         <app-crear-actividad></app-crear-actividad>
       </div>
       <div *ngIf="mostrarActividades">
-        <tablActividadescomponent></tablActividadescomponent>
+        <app-tabla-actividades></app-tabla-actividades>
       </div>
       <div *ngIf="mostrarUsuarios">
         <app-tabla-usuarios></app-tabla-usuarios>

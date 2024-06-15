@@ -4,13 +4,15 @@
             <button type="button" (click)="getActividadAuditId()" class="btn btn-dark">Buscar</button>
         </div>
         <div>
+
             <button type="button" (click)="downloadCSV()" class="btn btn-dark">Exportar CSV</button>
         </div>
         <div>
+
             <button type="button" (click)="downloadPDF(auditoria)" class="btn btn-dark">Exportar PDF</button>
         </div>
     </div>
-    <p-table #tabla id="tablaregistros" [value]="auditoria" [tableStyle]="{'min-width': '50rem'}">
+    <p-table #tabla id="tablaregistros" [value]="auditoria" [paginator]="true" [rows]="8" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th>Id de Registro</th>

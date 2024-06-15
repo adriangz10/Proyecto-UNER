@@ -1,48 +1,56 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ZonaEnum } from '../enums/zona.enum';
 import { map } from 'rxjs/operators';
 import { Usuario } from '../interface/usuarios.interface';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
   
-  getUsuarios(): Observable<any> {
+  getUsuarios(): Observable<Usuario[]> {
     return this.http
-      .get(`${this.apiUrl}/usuarios`)
+      .get<Usuario[]>(`${environment.apiUrl}/usuarios`)
       .pipe((res) => res);
   }
 
-  getUsuariosId(id: string): Observable<any> {
+  getUsuariosId(id: string): Observable<Usuario> {
     return this.http
-      .get(`${this.apiUrl}/usuarios/${id}`)
+      .get<Usuario>(`${environment.apiUrl}/usuarios/${id}`)
       .pipe((res) => res);
   }
-  getUsuariosZona(zona: ZonaEnum): Observable<any> {
+  getUsuariosZona(zona: ZonaEnum): Observable<Usuario[]> {
     return this.http
-      .get(`${this.apiUrl}/usuarios/repartidor/${zona}`)
+      .get<Usuario[]>(`${environment.apiUrl}/usuarios/repartidor/${zona}`)
       .pipe((res) => res);
   }
 
   getUsuariosRol(): Observable<string[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/usuarios`).pipe(
+    return this.http.get<any[]>(`${environment.apiUrl}/usuarios`).pipe(
       map((usuarios: any[]) => usuarios.map(usuario => usuario.rol))
     );
   }
 
-  createUsuario(usuario: Usuario): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuarios`, usuario);
+  createUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(`${environment.apiUrl}/usuarios`, usuario);
   }
 
-  deleteUsuario(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/usuarios/${id}`);
+  deleteUsuario(id: number): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${environment.apiUrl}/usuarios/${id}`);
   }
 
+  updateUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(`${environment.apiUrl}/usuarios/${usuario.id}`, usuario);
+  }
+
+  getUsuarioById(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${environment.apiUrl}/usuarios/${id}`);
+  }
+  
 }

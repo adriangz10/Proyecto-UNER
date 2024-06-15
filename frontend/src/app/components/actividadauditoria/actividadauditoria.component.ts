@@ -52,7 +52,6 @@ export class ActividadAuditoriaComponent {
       console.error('Error al obtener las actividades de auditoría:', error);
     });
   } 
- 
   downloadPDF(data: any[]): void {
     const filename = 'registro pdf'
     const doc = new jsPDF();
@@ -67,6 +66,7 @@ export class ActividadAuditoriaComponent {
 
     doc.save(`${filename}.pdf`);
   }
+
 
   downloadCSV(): void {
     const filename = 'registro_csv';

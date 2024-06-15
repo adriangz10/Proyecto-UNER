@@ -1,5 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
 import { OperacionEnum } from '../enum/operaciones.enum';
+
+
 import { ZonaEnum } from 'src/auth/enus/zona.enum';
 import { PrioridadActividadEnum } from 'src/activity/enus/prioridad.actividad.enum';
 
@@ -32,4 +35,8 @@ export class actividadesAuditoria {
 
   @Column({type:'enum', enum:PrioridadActividadEnum})
   prioridad: PrioridadActividadEnum;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3d662bbf0b54a387e799af5128cb35134e5995f9

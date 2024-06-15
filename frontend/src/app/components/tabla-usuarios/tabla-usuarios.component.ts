@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../interface/user.interface';
+import { Usuario } from '../../interface/usuarios.interface';
 import { UsuarioService } from '../../services/usuario.service';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -11,6 +11,7 @@ import { Subject, debounceTime, switchMap } from 'rxjs';
 import { CrearUsuarioComponent } from '../crear-usuario/crear-usuario.component';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { EditarUsuarioComponent } from '../edicion-usuario/edicion-usuario.component';
 
 interface Column {
   field: string;
@@ -20,7 +21,7 @@ interface Column {
 @Component({
   selector: 'app-tabla-usuarios',
   standalone: true,
-  imports: [TableModule, TagModule, CommonModule, FormsModule, RatingModule, CrearUsuarioComponent, DialogModule, ButtonModule],
+  imports: [TableModule, TagModule, CommonModule, FormsModule, RatingModule, CrearUsuarioComponent, EditarUsuarioComponent, DialogModule, ButtonModule],
   templateUrl: './tabla-usuarios.component.html',
   styleUrl: './tabla-usuarios.component.css'
 })
@@ -29,6 +30,10 @@ export class TablaUsuariosComponent implements OnInit {
   usuarios!: Usuario[];
 
   mostrarCrearUsuario = false;
+
+  mostrarEditarUsuario = false;
+
+  usuarioSeleccionado! : Usuario;
 
   cols!: Column[];
 
@@ -68,15 +73,26 @@ export class TablaUsuariosComponent implements OnInit {
 
   getUsuarios(): void {
     this.usuarioService.getUsuarios().subscribe((data) => {
-      console.log(data);
+      (data);
+      console.log(data)
       this.usuarios = data;
     });
   }
 
-  deleteActividad(id: string): void {
+  deleteActividad(id: number): void {
     this.usuarioService.deleteUsuario(id).subscribe(() => {
       this.usuarios = this.usuarios.filter((item) => item.id !== id);
     });
+  }
+
+  updateUsuario(usuario: Usuario): void {
+    this.usuarioSeleccionado = usuario;
+    this.mostrarEditarUsuario = true;
+  }
+
+  onUsuarioEditado(): void {
+    this.getUsuarios();
+    this.mostrarEditarUsuario = false;
   }
 
   onSearch(event: Event): void {

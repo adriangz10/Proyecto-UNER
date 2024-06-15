@@ -4,16 +4,21 @@ import { Observable } from 'rxjs';
 import { RolesEnum } from '../enums/roles.enum';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+<<<<<<< HEAD
 import { Token } from '@angular/compiler';
 import { environment } from '../../environments/environment';
 
 
+=======
+import { environment } from '../../environments/environment';
+>>>>>>> 3d662bbf0b54a387e799af5128cb35134e5995f9
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
 
+<<<<<<< HEAD
 
 
   constructor(private _http: HttpClient , private router: Router) { 
@@ -33,8 +38,20 @@ export class LoginService {
       
     );
     
+=======
+  constructor(private _http: HttpClient, private router: Router) {
+    window.addEventListener('beforeunload', () => {
+      this.logout();
+    });
+>>>>>>> 3d662bbf0b54a387e799af5128cb35134e5995f9
   }
 
+  login(usuario: string, clave: string): Observable<{ token: string }> {
+    return this._http.post<{ token: string }>(`${environment.apiUrl}/auth`, {
+      usuario,
+      clave,
+    });
+  }
 
   setSession(token: string) {
     sessionStorage.setItem('token', token);
@@ -60,5 +77,12 @@ export class LoginService {
     sessionStorage.removeItem('token');
     this.router.navigateByUrl('login');
   }
-  
+
+  getUserId(): string | null {    
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return null;
+    }
+    return new JwtHelperService().decodeToken(token).sub;
+  }
 }
