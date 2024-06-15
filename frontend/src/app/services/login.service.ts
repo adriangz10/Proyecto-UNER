@@ -5,6 +5,7 @@ import { RolesEnum } from '../enums/roles.enum';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { Token } from '@angular/compiler';
+import { environment } from '../../environments/environment';
 
 
 
@@ -13,18 +14,18 @@ import { Token } from '@angular/compiler';
 })
 export class LoginService {
 
-  private apiURL = 'http://localhost:3000/';
+
 
   constructor(private _http: HttpClient , private router: Router) { 
-  //   window.addEventListener('beforeunload', () => {
-  //   this.logout();
-  // }); 
+    window.addEventListener('beforeunload', () => {
+    this.logout();
+  }); 
 }
 
   login(usuario: string, clave: string): Observable<{ token: string }> {
 
     return this._http.post<{ token: string }>( 
-      `${this.apiURL}auth`,
+      environment.apiUrl + `auth`,
       {
         usuario,
         clave,
@@ -52,7 +53,7 @@ export class LoginService {
     if (!token) {
       return false;
     }
-    return new JwtHelperService().decodeToken().rol === rol;
+    return new JwtHelperService().decodeToken(token).rol === rol;
   }
 
   logout() {
