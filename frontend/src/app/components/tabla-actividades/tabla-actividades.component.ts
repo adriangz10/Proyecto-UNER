@@ -37,6 +37,7 @@ interface Column {
 export class TablaActividadesComponent implements OnInit {
   actividades!: Actividades[];
   cols!: Column[];
+  estados!: any[];
   parametroBusqueda: Busqueda = { id: '' };
   private searchSubject = new Subject<string>();
   visible: boolean = false;
@@ -56,6 +57,12 @@ export class TablaActividadesComponent implements OnInit {
       { field: 'estado', header: 'Estado' },
       { field: 'zona', header: 'Zona' },
       { field: 'direccion', header: 'Dirección' }
+    ];
+
+    this.estados = [
+      { label: 'Activo', value: 'activo' },
+      { label: 'Inactivo', value: 'inactivo' },
+      { label: 'Pendiente', value: 'pendiente' }
     ];
 
     this.searchSubject.pipe(
