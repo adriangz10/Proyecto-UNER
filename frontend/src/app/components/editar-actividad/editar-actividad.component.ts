@@ -62,4 +62,9 @@ export class EditarActividadComponent implements OnChanges {
       this.actividades = data;
     });
   }
+
+  cancelar() {
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
+  }
 }

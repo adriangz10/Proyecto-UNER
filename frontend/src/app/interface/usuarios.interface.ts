@@ -7,4 +7,5 @@ export interface Usuario {
     clave?: string;
     rol?: 'administrador' | 'repartidor';
     zona?: 'a' | 'b' | 'c';
+    
 }

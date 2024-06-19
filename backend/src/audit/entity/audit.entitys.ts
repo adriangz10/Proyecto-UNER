@@ -35,8 +35,6 @@ export class actividadesAuditoria {
 
   @Column({type:'enum', enum:PrioridadActividadEnum})
   prioridad: PrioridadActividadEnum;
-<<<<<<< HEAD
+
+  
 }
-=======
-}
->>>>>>> 3d662bbf0b54a387e799af5128cb35134e5995f9

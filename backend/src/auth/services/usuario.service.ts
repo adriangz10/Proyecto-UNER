@@ -7,6 +7,7 @@ import { CreateUserDto } from '../dtos/crate.users.dto';
 import { RolesEnum } from '../enus/roles.enum';
 import { HashService } from './hash.service';
 import { ZonaEnum } from '../enus/zona.enum';
+import * as bcrypt from 'bcrypt';
 
 export class UsuarioService {
   constructor(
@@ -114,10 +115,30 @@ export class UsuarioService {
     }
   }
 
-  async updateusuario(id: number, usuario: CreateUserDto): Promise<Usuario> {
-    await this.usuariorepository.update(id, usuario);
 
-    return this.usuariorepository.findOne({ where: { id } });
+  async updateusuario(id: number, usuario: CreateUserDto): Promise<Usuario> {
+    const usuarioOriginal= await this.usuariorepository.findOne({ where: { id } });
+
+    if (!usuarioOriginal) {
+      throw new BadRequestException('El usuario no existe');
+    }
+
+  
+    if (usuario.clave) {
+      const hashedPassword = await this.hashService.crearHash(usuario.clave);
+      usuarioOriginal.clave = hashedPassword;
+    }
+
+    usuarioOriginal.nombres = usuario.nombres;
+    usuarioOriginal.apellidos = usuario.apellidos;
+    usuarioOriginal.nombreUsuario = usuario.nombreUsuario;
+    usuarioOriginal.email = usuario.email;
+    usuarioOriginal.rol = usuario.rol;
+    usuarioOriginal.zona = usuario.zona;
+
+    await this.usuariorepository.save(usuarioOriginal);
+
+    return usuarioOriginal;
   }
 
   async removeusuario(id: number): Promise<Usuario> {
@@ -131,5 +152,18 @@ export class UsuarioService {
     usuarioelim.estado = EstadoUsuarioEnum.baja;
     await this.usuariorepository.save(usuarioelim);
     return usuarioelim;
+  }
+
+  async compareclave (id, clave:string): Promise<boolean>{
+    const usuario: Usuario | undefined = await this.findOneById(id);
+
+    if (!usuario) {
+      throw new BadRequestException('Usuario no encontrado');
+    }
+
+    const claveCifrada = usuario.clave;
+
+    const verificacion = await bcrypt.compare(clave, claveCifrada);
+    return verificacion;
   }
 }

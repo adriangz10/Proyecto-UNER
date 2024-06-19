@@ -1,0 +1,6 @@
+.container-boton{
+    display: flex;
+}
+.container-boton  * {
+    margin-right: 10px;
+}

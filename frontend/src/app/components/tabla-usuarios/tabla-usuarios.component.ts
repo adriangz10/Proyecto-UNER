@@ -80,9 +80,10 @@ export class TablaUsuariosComponent implements OnInit {
   }
 
   deleteActividad(id: number): void {
-    this.usuarioService.deleteUsuario(id).subscribe(() => {
-      this.usuarios = this.usuarios.filter((item) => item.id !== id);
-    });
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario?'))
+      this.usuarioService.deleteUsuario(id).subscribe(() => {
+        this.usuarios = this.usuarios.filter((item) => item.id !== id);
+      });
   }
 
   updateUsuario(usuario: Usuario): void {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards } from "@nestjs/common";
 import { UsuarioService } from "../../auth/services/usuario.service";
 import { Roles } from "../../auth/decorators/roles.decorators";
 import { AuthGuard } from "../../auth/guards/auth.guard";
@@ -13,6 +13,9 @@ import { ZonaEnum } from "../enus/zona.enum";
 export class UsuariosController {
 
     constructor  (private UsuarioService: UsuarioService){}
+
+
+    
 
     @Roles([RolesEnum.administrador])
     @UseGuards(AuthGuard)
@@ -41,7 +44,12 @@ export class UsuariosController {
     @Get('/repartidor/:zonarep')
         async getRepartidoreszona(@Param('zonarep')zonarep:ZonaEnum){
             return await this.UsuarioService.obtenerUsuariosPorZona(zonarep);
-        }       
+        }   
+        
+    @Get('/compare')
+    get(@Query('clave') clave: string, @Query('id') id: number): Promise<boolean> {
+        return this.UsuarioService.compareclave(id, clave);
+    }
 
     @Roles([RolesEnum.administrador, RolesEnum.repartidor])
     @UseGuards(AuthGuard)
@@ -49,7 +57,7 @@ export class UsuariosController {
     async finOneById(@Param('id') id:number): Promise <Usuario>{
         return await this.UsuarioService.findOneById(id)
     }
-
+    
     @Roles([RolesEnum.administrador])
     @UseGuards(AuthGuard)
     @Post()
@@ -71,4 +79,6 @@ export class UsuariosController {
     remove(@Param('id') id: number): Promise<Usuario> {
       return this.UsuarioService.removeusuario(id);
     }
+
+ 
 }

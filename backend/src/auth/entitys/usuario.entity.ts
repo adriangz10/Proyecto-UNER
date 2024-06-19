@@ -14,7 +14,7 @@ id:number
 @Column()
 email:string;
 
-@Exclude()
+// @Exclude()
 @Column()
 clave:string;
 
@@ -35,6 +35,8 @@ nombreUsuario:string;
 rol:RolesEnum;
 
 @Column({type:'enum', enum:ZonaEnum})
-zona:ZonaEnum
+zona:ZonaEnum;
+
+
 
 }

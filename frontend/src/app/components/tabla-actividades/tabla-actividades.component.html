@@ -2,7 +2,7 @@
   <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (input)="onSearch($event)">
 </div>
 <div *ngIf="actividades">
-  <p-table [value]="actividades" [paginator]="true" [rows]="5">
+  <p-table [value]="actividades" [paginator]="true" [rows]="4">
     <ng-template pTemplate="header">
       <tr>
         <th *ngFor="let col of cols">

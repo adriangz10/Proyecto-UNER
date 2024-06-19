@@ -49,8 +49,12 @@ export class UsuarioService {
     return this.http.put<Usuario>(`${environment.apiUrl}/usuarios/${usuario.id}`, usuario);
   }
 
-  getUsuarioById(id: string): Observable<Usuario> {
+  getUsuarioById(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${environment.apiUrl}/usuarios/${id}`);
+  }
+
+  compareClave (id:any, clave: string): Observable<any>{
+    return this.http.get<Boolean> (`${environment.apiUrl}/usuarios/compare?clave=${clave}&id=${id}`);
   }
   
 }

@@ -1,0 +1,5 @@
+label {
+  display: inline-block; /* Para asegurarte de que las etiquetas tienen un formato de bloque en línea */
+  margin-bottom: 5px; /* Ajusta este valor según sea necesario */
+  margin-right: 10px;
+}
