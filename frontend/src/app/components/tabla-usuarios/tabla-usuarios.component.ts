@@ -74,7 +74,6 @@ export class TablaUsuariosComponent implements OnInit {
   getUsuarios(): void {
     this.usuarioService.getUsuarios().subscribe((data) => {
       (data);
-      console.log(data)
       this.usuarios = data;
     });
   }
@@ -104,4 +103,4 @@ export class TablaUsuariosComponent implements OnInit {
     this.mostrarCrearUsuario = true;
   }
 
-}
+} 

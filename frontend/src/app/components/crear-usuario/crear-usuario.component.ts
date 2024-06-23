@@ -17,6 +17,8 @@ import { Usuario } from '../../interface/usuarios.interface';
 export class CrearUsuarioComponent {
   visible: boolean = true;
 
+  usuarios!: Usuario[];
+
   usuario: Usuario = {
     id: 0,
     nombres: '',
@@ -36,9 +38,16 @@ export class CrearUsuarioComponent {
     }
 
     this.usuarioService.createUsuario(this.usuario).subscribe(response => {
-      console.log('Usuario creado', response);
+      this.getUsuarios();
       this.visible = false;
       usuarioForm.reset();
+    });
+  }
+
+  getUsuarios(): void {
+    this.usuarioService.getUsuarios().subscribe((data) => {
+      (data);
+      this.usuarios = data;
     });
   }
 }

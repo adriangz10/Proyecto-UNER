@@ -1,6 +1,4 @@
 <div class="card justify-content-center">
-  <p-dialog header="REGISTRO DE USUARIO" [modal]="true" [(visible)]="visible" [style]="{ width: '40rem' }">
-    
     <form #usuarioForm="ngForm" (ngSubmit)="guardarUsuario(usuarioForm)">
       <div class="align-items-center gap-3 mb-3">
         <label for="nombres" class="font-semibold w-6rem">Nombres</label>
@@ -42,7 +40,6 @@
         <p-button type="submit" label="Guardar" [disabled]="usuarioForm.invalid" />
       </div>
     </form>
-  </p-dialog>
 </div>
 
 
