@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { Actividades } from '../../interface/actividades.interface';
 import { ActivitiService } from '../../services/actividad.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PrioridadActividadEnum } from '../../enums/prioridad.actividad.enum';
+import { ZonaEnum } from '../../enums/zona.enum';
 
 @Component({
   selector: 'app-editar-actividad',
@@ -22,6 +24,9 @@ export class EditarActividadComponent implements OnChanges {
 
   form: FormGroup;
   actividades: Actividades[] | undefined;
+
+  prioridades = Object.values(PrioridadActividadEnum);
+  zonas = Object.values(ZonaEnum);
 
   constructor(private fb: FormBuilder, private activitiService: ActivitiService) {
     this.form = this.fb.group({

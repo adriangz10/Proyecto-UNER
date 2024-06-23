@@ -10,6 +10,8 @@ import { ZonaEnum } from '../../enums/zona.enum';
 import { ActivitiService } from '../../services/actividad.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../interface/usuarios.interface';
+import { Actividades } from '../../interface/actividades.interface';
+import { PrioridadActividadEnum } from '../../enums/prioridad.actividad.enum';
 
 @Component({
   selector: 'app-crear-actividad',
@@ -31,6 +33,9 @@ export class CrearActividadComponent {
 
   usuariosZona: Usuario[] = [];
   usuariosSubscription?: Subscription;
+  prioridades = Object.values(PrioridadActividadEnum);
+  zonas = Object.values(ZonaEnum);
+  actividadesSubscription?: Subscription;
 
   constructor(private activitiService: ActivitiService, private usuarioService: UsuarioService) {}
 
@@ -52,6 +57,9 @@ export class CrearActividadComponent {
   ngOnDestroy() {
     if (this.usuariosSubscription) {
       this.usuariosSubscription.unsubscribe();
+    }
+    if (this.actividadesSubscription) {
+      this.actividadesSubscription.unsubscribe();
     }
   }
 

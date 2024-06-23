@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, ViewChild   } from '@angular/core';
 import { ActividadAuditoria } from '../../interface/actividad-uditoria.interface';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { saveAs } from 'file-saver';
 import { Title } from '@angular/platform-browser';
 
 
@@ -58,11 +60,35 @@ export class ActividadAuditoriaComponent {
     const rows = data.map(item => columns.map(column => item[column]));
 
     (doc as any).autoTable({
-      title: ['Registro historico hasta'],
+      title: ['Registro historico'],
       head: [columns],
       body: rows,
     });
 
     doc.save(`${filename}.pdf`);
+  }
+
+
+  downloadCSV(): void {
+    const filename = 'registro_csv';
+    const csvData = this.convertToCSV(this.auditoria);
+
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, `${filename}.csv`);
+  }
+
+  convertToCSV(data: any[]): string {
+    const separador = ',';
+    const keys = Object.keys(data[0]);
+    const csvHeader = keys.join(separador) + '\n';
+
+    const csvRows = data.map(row => {
+      return keys.map(key => {
+        let cell = row[key];
+        return cell;
+      }).join(separador);
+    }).join('\n');
+
+  return csvHeader + csvRows;
   }
 }

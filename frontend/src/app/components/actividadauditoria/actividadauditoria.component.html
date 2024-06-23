@@ -1,57 +1,62 @@
-    <div class="container">
-        <div class="search-container">
-            <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (ngModelChange)="getActividadAuditId()">
-            <button type="button" (click)="getActividadAuditId()" class="btn btn-dark">Buscar</button>
-        </div>
-        <div>
-            <button type="button" (click)="downloadPDF(auditoria)" class="btn btn-dark">Exportar PDF</button>
-        </div>
+<div class="container">
+    <div class="search-container">
+        <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (ngModelChange)="getActividadAuditId()">
+        <button type="button" (click)="getActividadAuditId()" class="btn btn-dark">Buscar</button>
     </div>
-    <p-table #tabla id="tablaregistros" [value]="auditoria" [paginator]="true" [rows]="12" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th>Id de Registro</th>
-                <th>Id de Actividad</th>
-                <th>Usuario Asignado</th>
-                <th>Usuario Modificacion</th>
-                <th>Fecha de Modificacion</th>
-                <th>Operacion</th>
-                <th>zona</th>
-                <th>direccion</th>
-                <th>prioridad</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>
-                    {{product.id}}
-                </td>
-                <td>
-                    {{product.id_activ}}
-                </td>
-                
-                <td>
-                    {{product.id_usuario_act}}
-                </td>
-                <td>
-                    {{product.fecha_modificacion }}
-                </td>
-                <td>
-                    {{product.fecha_modificacion}}
-                </td>
-                <td>
-                    {{product.operacion}}
-                </td>
-                <td>
-                    {{product.zona}}
-                </td>
-                <td>
-                    {{product.direccion}}
-                </td>
-                <td>
-                    {{product.prioridad}}
-                </td>
+    <div>
+
+        <button type="button" (click)="downloadCSV()" class="btn btn-dark">Exportar CSV</button>
+    </div>
+    <div>
+
+        <button type="button" (click)="downloadPDF(auditoria)" class="btn btn-dark">Exportar PDF</button>
+    </div>
+</div>
+<p-table #tabla id="tablaregistros" [value]="auditoria" [paginator]="true" [rows]="8" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id de Registro</th>
+            <th>Id de Actividad</th>
+            <th>Usuario Asignado</th>
+            <th>Usuario Modificacion</th>
+            <th>Fecha de Modificacion</th>
+            <th>Operacion</th>
+            <th>zona</th>
+            <th>direccion</th>
+            <th>prioridad</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>
+                {{product.id}}
+            </td>
+            <td>
+                {{product.id_activ}}
+            </td>
             
-            </tr>
-        </ng-template>
-    </p-table>
+            <td>
+                {{product.id_usuario_act}}
+            </td>
+            <td>
+                {{product.fecha_modificacion }}
+            </td>
+            <td>
+                {{product.fecha_modificacion}}
+            </td>
+            <td>
+                {{product.operacion}}
+            </td>
+            <td>
+                {{product.zona}}
+            </td>
+            <td>
+                {{product.direccion}}
+            </td>
+            <td>
+                {{product.prioridad}}
+            </td>
+        
+        </tr>
+    </ng-template>
+</p-table>

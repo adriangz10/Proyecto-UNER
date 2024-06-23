@@ -1,43 +1,38 @@
 <div class="card flex justify-content-center">
-    <p-dialog header="REGISTRO DE PAQUETES" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-      <span class="p-text-secondary block mb-5">Registre Su Nuevo Paquete</span>
-      <form #paqueteForm="ngForm" (ngSubmit)="guardarPaquete(paqueteForm)">
-        <div class="flex align-items-center gap-3 mb-3">
-          <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
-          <input pInputText id="descripcion" name="descripcion" class="flex-auto" [(ngModel)]="paquete.descripcion" autocomplete="off" required />
-        </div>
-        <div class="flex align-items-center gap-3 mb-5">
-          <label for="prioridad" class="font-semibold w-6rem">Prioridad</label>
-          <select pInputText id="prioridad" name="prioridad" class="flex-auto" [(ngModel)]="paquete.prioridad" autocomplete="off" required>
-            <option value="alta">Alta</option>
-            <option value="media">Media</option>
-            <option value="baja">Baja</option>
-          </select>
-        </div>
-        <div class="flex align-items-center gap-3 mb-5">
-          <label for="zona" class="font-semibold w-6rem">Zona</label>
-          <select pInputText id="zona" name="zona" class="flex-auto" [(ngModel)]="paquete.zona" autocomplete="off" required (change)="seleccionarZona(paquete.zona)" > 
-            <option value="A"> A</option>
-            <option value="B"> B</option>
-            <option value="C"> C</option>
-          </select>
-        </div>
-        <div class="flex align-items-center gap-3 mb-5">
-          <label for="direccion" class="font-semibold w-6rem">Dirección</label>
-          <input pInputText id="direccion" name="direccion" class="flex-auto" [(ngModel)]="paquete.direccion" autocomplete="off" required />
-        </div>
-        <div class="flex align-items-center gap-3 mb-5">
-          <label for="repartidor" class="font-semibold w-6rem">Repartidor asignado</label>
-          <select pInputText id="repartidor" name="repartidor" class="flex-auto" [(ngModel)]="paquete.id_usuario_actual" autocomplete="off" required>
-            <option *ngFor="let usuario of usuariosZona" [value]="usuario.id">{{ usuario.nombres }}</option>
-          </select>
-        </div>
-  
-        <div class="flex justify-content-end gap-2">
-          <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
-          <p-button type="submit" label="Guardar" [disabled]="paqueteForm.invalid" />
-        </div>
-      </form>
-    </p-dialog>
-  </div>
-  
+  <p-dialog header="REGISTRO DE PAQUETES" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-5">Registre Su Nuevo Paquete</span>
+    <form #paqueteForm="ngForm" (ngSubmit)="guardarPaquete(paqueteForm)">
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
+        <input pInputText id="descripcion" name="descripcion" class="flex-auto" [(ngModel)]="paquete.descripcion" autocomplete="off" required />
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="prioridad" class="font-semibold w-6rem">Prioridad</label>
+        <select pInputText id="prioridad" name="prioridad" class="flex-auto" [(ngModel)]="paquete.prioridad" autocomplete="off" required>
+          <option *ngFor="let prioridad of prioridades" [value]="prioridad">{{ prioridad }}</option>
+        </select>
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="zona" class="font-semibold w-6rem">Zona</label>
+        <select pInputText id="zona" name="zona" class="flex-auto" [(ngModel)]="paquete.zona" autocomplete="off" required (change)="seleccionarZona(paquete.zona)">
+          <option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</option>
+        </select>
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="direccion" class="font-semibold w-6rem">Dirección</label>
+        <input pInputText id="direccion" name="direccion" class="flex-auto" [(ngModel)]="paquete.direccion" autocomplete="off" required />
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="repartidor" class="font-semibold w-6rem">Repartidor asignado</label>
+        <select pInputText id="repartidor" name="repartidor" class="flex-auto" [(ngModel)]="paquete.id_usuario_actual" autocomplete="off" required>
+          <option *ngFor="let usuario of usuariosZona" [value]="usuario.id">{{ usuario.nombres }}</option>
+        </select>
+      </div>
+
+      <div class="flex justify-content-end gap-2">
+        <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
+        <p-button type="submit" label="Guardar" [disabled]="paqueteForm.invalid" />
+      </div>
+    </form>
+  </p-dialog>
+</div>
