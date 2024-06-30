@@ -6,7 +6,8 @@
   <div class="tables-container">
     <div class="table">
       <h3>Transportes Pendientes</h3>
-      <p-table [value]="enviosPendientes" selectionMode="single" (onRowSelect)="transporteSeleccionado($event.data)"scrollable="true" scrollHeight="250px">
+      <p-table [value]="enviosPendientes" selectionMode="single" (onRowSelect)="transporteSeleccionado($event.data)"
+        scrollable="true" scrollHeight="250px">
         <ng-template pTemplate="header">
           <tr>
             <th>Direccion de entrega:</th>
@@ -21,7 +22,8 @@
             <td>{{ transporte.direccion }}</td>
             <td>{{ transporte.descripcion }}</td>
             <td>{{ transporte.prioridad }}</td>
-            <td><button pButton type="button" icon="pi pi-check" (click)="transporteSeleccionado(transporte)"></button></td>
+            <td><button pButton type="button" icon="pi pi-check" (click)="transporteSeleccionado(transporte)"></button>
+            </td>
           </tr>
         </ng-template>
       </p-table>
@@ -29,7 +31,7 @@
 
     <div class="table">
       <h3>Transportes Completados</h3>
-      <p-table [value]="enviosCompletados"  scrollable="true" scrollHeight="250px">
+      <p-table [value]="enviosCompletados" scrollable="true" scrollHeight="250px">
         <ng-template pTemplate="header">
           <tr>
             <th>Paquete entregado en:</th>
@@ -46,10 +48,7 @@
     </div>
   </div>
 
-  <app-transport-modal 
-    [transporte]="selectedTransport" 
-    [display]="displayModal" 
-    (onClose)="displayModal = false" 
+  <app-transport-modal [transporte]="selectedTransport" [display]="displayModal" (onClose)="displayModal = false"
     (onComplete)="completeTransporte($event)">
   </app-transport-modal>
 </app-base>

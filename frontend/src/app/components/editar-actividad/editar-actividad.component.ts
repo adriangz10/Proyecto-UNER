@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
@@ -12,9 +19,9 @@ import { ZonaEnum } from '../../enums/zona.enum';
 @Component({
   selector: 'app-editar-actividad',
   standalone: true,
-  imports: [CommonModule, DialogModule, ButtonModule,ReactiveFormsModule], 
+  imports: [CommonModule, DialogModule, ButtonModule, ReactiveFormsModule],
   templateUrl: './editar-actividad.component.html',
-  styleUrls: ['./editar-actividad.component.css']
+  styleUrls: ['./editar-actividad.component.css'],
 })
 export class EditarActividadComponent implements OnChanges {
   @Input() actividad!: Actividades;
@@ -28,12 +35,15 @@ export class EditarActividadComponent implements OnChanges {
   prioridades = Object.values(PrioridadActividadEnum);
   zonas = Object.values(ZonaEnum);
 
-  constructor(private fb: FormBuilder, private activitiService: ActivitiService) {
+  constructor(
+    private fb: FormBuilder,
+    private activitiService: ActivitiService
+  ) {
     this.form = this.fb.group({
       descripcion: ['', Validators.required],
       prioridad: ['', Validators.required],
       zona: ['', Validators.required],
-      direccion: ['', Validators.required]
+      direccion: ['', Validators.required],
     });
   }
 
@@ -46,19 +56,23 @@ export class EditarActividadComponent implements OnChanges {
   guardarActividad(): void {
     if (this.form.valid) {
       const actividadEditada = { ...this.form.value };
-      this.activitiService.updateActividad(this.actividad.id, actividadEditada).subscribe(
-        () => {
-          this.actividadEditada.emit();
-          this.visible = false;
-          this.visibleChange.emit(this.visible);
-          this.getActividades();
-        },
-        error => {
-          console.error('Error al guardar la actividad:', error);
-        }
-      );
+      this.activitiService
+        .updateActividad(this.actividad.id, actividadEditada)
+        .subscribe(
+          () => {
+            this.actividadEditada.emit();
+            this.visible = false;
+            this.visibleChange.emit(this.visible);
+            this.getActividades();
+          },
+          (error) => {
+            console.error('Error al guardar la actividad:', error);
+          }
+        );
     } else {
-      console.error('El formulario no es válido. No se puede guardar la actividad.');
+      console.error(
+        'El formulario no es válido. No se puede guardar la actividad.'
+      );
     }
   }
 
@@ -66,5 +80,10 @@ export class EditarActividadComponent implements OnChanges {
     this.activitiService.getActividades().subscribe((data) => {
       this.actividades = data;
     });
+  }
+
+  cancelar() {
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
   }
 }

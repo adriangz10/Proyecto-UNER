@@ -7,19 +7,19 @@ import { actividadesAuditoria } from '../entity/audit.entitys';
 @Injectable()
 export class ActividadAuditoriaService {
   constructor(
-    @InjectRepository(actividadesAuditoria) private actividadesAuditoriaRepository: Repository<actividadesAuditoria>
-    ) {}
-  
-    // Método para obtener todas las actividades de auditoria
-    async findAll(): Promise<actividadesAuditoria[]>
-    {
-      return await this.actividadesAuditoriaRepository.find();
-    }
+    @InjectRepository(actividadesAuditoria)
+    private actividadesAuditoriaRepository: Repository<actividadesAuditoria>,
+  ) {}
 
-    async find(id:number): Promise<actividadesAuditoria[]>
-    {
-      const actividades = await this.actividadesAuditoriaRepository.find({ where: {id_activ : id  } });
-      return actividades
-    }
-  
+  // Método para obtener todas las actividades de auditoria
+  async findAll(): Promise<actividadesAuditoria[]> {
+    return await this.actividadesAuditoriaRepository.find();
   }
+
+  async find(id: number): Promise<actividadesAuditoria[]> {
+    const actividades = await this.actividadesAuditoriaRepository.find({
+      where: { id_activ: id },
+    });
+    return actividades;
+  }
+}

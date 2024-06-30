@@ -1,14 +1,10 @@
-import { IsNotEmpty, IsString} from "class-validator"
+import { IsNotEmpty, IsString } from 'class-validator';
 
- 
+export class Logindto {
+  @IsString()
+  @IsNotEmpty()
+  usuario: string;
 
-
-export class Logindto{
-    @IsString()
-    @IsNotEmpty()
-    usuario: string
-
-    @IsNotEmpty()
-    clave: string
-    
+  @IsNotEmpty()
+  clave: string;
 }

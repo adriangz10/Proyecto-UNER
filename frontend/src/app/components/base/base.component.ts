@@ -8,8 +8,6 @@ import { ToastModule } from 'primeng/toast';
   standalone: true,
   imports: [HeaderComponent, FooterComponent, ToastModule],
   templateUrl: './base.component.html',
-  styleUrl: './base.component.css'
+  styleUrl: './base.component.css',
 })
-export class BaseComponent {
-
-}
+export class BaseComponent {}

@@ -4,19 +4,25 @@ import { Observable } from 'rxjs';
 import { Transporte } from '../interface/transport.interface';
 import { environment } from '../../environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class transporteService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTransporte(): Observable<Transporte[]> {
-    return this.http.get<Transporte[]>(`${environment.apiUrl}/actividades/repartidor`);
+    return this.http.get<Transporte[]>(
+      `${environment.apiUrl}/actividades/repartidor`
+    );
   }
 
-  updateTransporte(id: number, transporte: Partial<Transporte>): Observable<Transporte> {
-    return this.http.put<Transporte>(`${environment.apiUrl}/actividades/repartidor/${id}`, transporte);
+  updateTransporte(
+    id: number,
+    transporte: Partial<Transporte>
+  ): Observable<Transporte> {
+    return this.http.put<Transporte>(
+      `${environment.apiUrl}/actividades/repartidor/${id}`,
+      transporte
+    );
   }
 }

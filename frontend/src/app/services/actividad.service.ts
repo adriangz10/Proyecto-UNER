@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Paquete } from '../interface/paquete.interface';
 import { Actividades } from '../interface/actividades.interface';
 import { environment } from '../../environments/environment';
@@ -9,23 +9,31 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ActivitiService {
-
   constructor(private http: HttpClient) {}
 
   getActividades(): Observable<Actividades[]> {
-    return this.http.get<Actividades[]>(`${environment.apiUrl}/actividades`).pipe((res) => res);
+    return this.http
+      .get<Actividades[]>(`${environment.apiUrl}/actividades`)
+      .pipe((res) => res);
   }
 
   getActividadesId(id: string): Observable<Actividades[]> {
-    return this.http.get<Actividades[]>(`${environment.apiUrl}/actividades/${id}`).pipe((res) => res);
+    return this.http
+      .get<Actividades[]>(`${environment.apiUrl}/actividades/${id}`)
+      .pipe((res) => res);
   }
 
   createActividad(paquete: Paquete): Observable<Actividades[]> {
-    return this.http.post<Actividades[]>(`${environment.apiUrl}/actividades`, paquete);
+    return this.http.post<Actividades[]>(
+      `${environment.apiUrl}/actividades`,
+      paquete
+    );
   }
 
   deleteActividad(id: string): Observable<Actividades[]> {
-    return this.http.delete<Actividades[]>(`${environment.apiUrl}/actividades/${id}`);
+    return this.http.delete<Actividades[]>(
+      `${environment.apiUrl}/actividades/${id}`
+    );
   }
 
   updateActividad(id: string, actividad: Actividades): Observable<any> {
@@ -33,4 +41,13 @@ export class ActivitiService {
     return this.http.put(url, actividad);
   }
 
+  getActividadesPrioridad(): Observable<{ prioridad: string }[]> {
+    return this.http
+      .get<Actividades[]>(`${environment.apiUrl}/actividades`)
+      .pipe(
+        map((actividades) =>
+          actividades.map((actividad) => ({ prioridad: actividad.prioridad }))
+        )
+      );
+  }
 }

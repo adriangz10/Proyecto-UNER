@@ -20,7 +20,7 @@ import { LoginService } from '../../services/login.service';
     TablaActividadesComponent,
     CrearActividadComponent,
     TablaUsuariosComponent,
-    ActividadAuditoriaComponent
+    ActividadAuditoriaComponent,
   ],
   templateUrl: './actividades-admin.component.html',
   styleUrl: './actividades-admin.component.css',
@@ -29,21 +29,20 @@ export class GestionAdminComponent implements OnInit {
   mostrarCrearActividad = false;
   mostrarActividades = false;
   mostrarUsuarios = false;
-  mostrarActividadAuditoria=false
+  mostrarActividadAuditoria = false;
   userName: string | undefined;
 
   constructor(
     private usuarioService: UsuarioService,
-    private loginService: LoginService,
-    ) {
-    }
+    private loginService: LoginService
+  ) {}
 
   ngOnInit() {
     this.showUserInfo();
   }
 
   toggleView(view: string) {
-    switch(view) {
+    switch (view) {
       case 'crearActividad':
         this.mostrarCrearActividad = !this.mostrarCrearActividad;
         this.mostrarActividades = false;
@@ -82,9 +81,8 @@ export class GestionAdminComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error fetching user data', err);
-        }
+        },
       });
     }
   }
-  
 }

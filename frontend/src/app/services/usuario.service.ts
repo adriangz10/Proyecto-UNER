@@ -6,14 +6,12 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../interface/usuarios.interface';
 import { environment } from '../../environments/environment';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-
   constructor(private http: HttpClient) {}
-  
+
   getUsuarios(): Observable<Usuario[]> {
     return this.http
       .get<Usuario[]>(`${environment.apiUrl}/usuarios`)
@@ -32,9 +30,9 @@ export class UsuarioService {
   }
 
   getUsuariosRol(): Observable<string[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/usuarios`).pipe(
-      map((usuarios: any[]) => usuarios.map(usuario => usuario.rol))
-    );
+    return this.http
+      .get<any[]>(`${environment.apiUrl}/usuarios`)
+      .pipe(map((usuarios: any[]) => usuarios.map((usuario) => usuario.rol)));
   }
 
   createUsuario(usuario: Usuario): Observable<Usuario> {
@@ -46,11 +44,19 @@ export class UsuarioService {
   }
 
   updateUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${environment.apiUrl}/usuarios/${usuario.id}`, usuario);
+    return this.http.put<Usuario>(
+      `${environment.apiUrl}/usuarios/${usuario.id}`,
+      usuario
+    );
   }
 
   getUsuarioById(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${environment.apiUrl}/usuarios/${id}`);
   }
-  
+
+  compareClave(id: any, clave: string): Observable<any> {
+    return this.http.get<Boolean>(
+      `${environment.apiUrl}/usuarios/compare?clave=${clave}&id=${id}`
+    );
+  }
 }

@@ -1,28 +1,24 @@
-import { PrioridadActividadEnum } from "../enus/prioridad.actividad.enum"
-import { ZonaEnum } from "../../auth/enus/zona.enum"
-import { IsNotEmpty, IsString } from "class-validator"
-import { EstadoActividadEnum } from "../enus/estado.actividades.enus"
-
+import { PrioridadActividadEnum } from '../enus/prioridad.actividad.enum';
+import { ZonaEnum } from '../../auth/enus/zona.enum';
+import { IsNotEmpty, IsString } from 'class-validator';
+import { EstadoActividadEnum } from '../enus/estado.actividades.enus';
 
 export class ActividadesDto {
+  @IsString()
+  descripcion: string;
 
-    @IsString()
-    descripcion: string
+  @IsNotEmpty()
+  id_usuario_actual: number;
 
-    @IsNotEmpty()
-    id_usuario_actual: number
+  @IsNotEmpty()
+  prioridad: PrioridadActividadEnum;
 
-    @IsNotEmpty()
-    prioridad: PrioridadActividadEnum
+  @IsNotEmpty()
+  estado: EstadoActividadEnum;
 
-    @IsNotEmpty()
-    estado: EstadoActividadEnum
+  @IsNotEmpty()
+  zona: ZonaEnum;
 
-
-    @IsNotEmpty()
-    zona: ZonaEnum
-
-    @IsString()
-    direccion:string
-
+  @IsString()
+  direccion: string;
 }

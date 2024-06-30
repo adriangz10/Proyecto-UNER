@@ -10,9 +10,15 @@ import { Usuario } from '../../interface/usuarios.interface';
 @Component({
   selector: 'app-crear-usuario',
   standalone: true,
-  imports: [DialogModule, ButtonModule, InputTextModule, FormsModule, CommonModule],
+  imports: [
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+    FormsModule,
+    CommonModule,
+  ],
   templateUrl: './crear-usuario.component.html',
-  styleUrls: ['./crear-usuario.component.css']
+  styleUrls: ['./crear-usuario.component.css'],
 })
 export class CrearUsuarioComponent {
   visible: boolean = true;
@@ -27,17 +33,17 @@ export class CrearUsuarioComponent {
     email: '',
     clave: '',
     rol: undefined,
-    zona: undefined
+    zona: undefined,
   };
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService) {}
 
   guardarUsuario(usuarioForm: any) {
     if (usuarioForm.invalid) {
-      return; 
+      return;
     }
 
-    this.usuarioService.createUsuario(this.usuario).subscribe(response => {
+    this.usuarioService.createUsuario(this.usuario).subscribe((response) => {
       this.getUsuarios();
       this.visible = false;
       usuarioForm.reset();
@@ -46,7 +52,7 @@ export class CrearUsuarioComponent {
 
   getUsuarios(): void {
     this.usuarioService.getUsuarios().subscribe((data) => {
-      (data);
+      data;
       this.usuarios = data;
     });
   }

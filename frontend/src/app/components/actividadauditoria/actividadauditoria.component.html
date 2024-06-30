@@ -1,6 +1,7 @@
 <div class="container">
     <div class="search-container">
-        <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (ngModelChange)="getActividadAuditId()">
+        <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID"
+            (ngModelChange)="getActividadAuditId()">
         <button type="button" (click)="getActividadAuditId()" class="btn btn-dark">Buscar</button>
     </div>
     <div>
@@ -12,7 +13,8 @@
         <button type="button" (click)="downloadPDF(auditoria)" class="btn btn-dark">Exportar PDF</button>
     </div>
 </div>
-<p-table #tabla id="tablaregistros" [value]="auditoria" [paginator]="true" [rows]="8" [tableStyle]="{'min-width': '50rem'}">
+<p-table #tabla id="tablaregistros" [value]="auditoria" [paginator]="true" [rows]="8"
+    [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Id de Registro</th>
@@ -34,7 +36,7 @@
             <td>
                 {{product.id_activ}}
             </td>
-            
+
             <td>
                 {{product.id_usuario_act}}
             </td>
@@ -56,7 +58,7 @@
             <td>
                 {{product.prioridad}}
             </td>
-        
+
         </tr>
     </ng-template>
 </p-table>

@@ -3,7 +3,6 @@ import { RolesEnum } from '../../auth/enus/roles.enum';
 import { ZonaEnum } from '../../auth/enus/zona.enum';
 
 export class CreateUserDto {
-
   @IsNotEmpty()
   @IsString()
   nombres: string;
@@ -32,6 +31,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   zona: ZonaEnum;
-
-  
 }

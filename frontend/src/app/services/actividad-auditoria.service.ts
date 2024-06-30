@@ -5,10 +5,9 @@ import { ActividadAuditoria } from '../interface/actividad-uditoria.interface';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ActividadAuditoriaService {
-
   constructor(private http: HttpClient) {}
 
   getActividadesAuditorias(): Observable<ActividadAuditoria[]> {
@@ -21,6 +20,5 @@ export class ActividadAuditoriaService {
     return this.http
       .get<ActividadAuditoria[]>(`${environment.apiUrl}/audit/${id}`)
       .pipe((res) => res);
-      
   }
 }

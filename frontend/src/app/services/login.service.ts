@@ -10,7 +10,6 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class LoginService {
-
   constructor(private _http: HttpClient, private router: Router) {
     window.addEventListener('beforeunload', () => {
       this.logout();
@@ -49,7 +48,7 @@ export class LoginService {
     this.router.navigateByUrl('login');
   }
 
-  getUserId(): string | null {    
+  getUserId(): string | null {
     const token = sessionStorage.getItem('token');
     if (!token) {
       return null;

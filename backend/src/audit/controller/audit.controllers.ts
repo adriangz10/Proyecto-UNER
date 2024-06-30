@@ -8,8 +8,7 @@ export class ActividadAuditoriaController {
   constructor(private actividadesAuditoriaService: ActividadAuditoriaService) {}
 
   @Get()
-  findAll(): Promise<actividadesAuditoria[]>
-  {
+  findAll(): Promise<actividadesAuditoria[]> {
     return this.actividadesAuditoriaService.findAll();
   }
 
@@ -17,8 +16,4 @@ export class ActividadAuditoriaController {
   find(@Param('id') id_activ: number): Promise<actividadesAuditoria[]> {
     return this.actividadesAuditoriaService.find(id_activ);
   }
-
-
 }
-
-

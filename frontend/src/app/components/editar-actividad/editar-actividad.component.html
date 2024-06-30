@@ -1,34 +1,33 @@
-<p-dialog [(visible)]="visible" modal="true" [baseZIndex]="10000" styleClass="width: 500px;" >
+<p-dialog [(visible)]="visible" modal="true" [baseZIndex]="10000" styleClass="width: 500px;">
   <div class="modal-header">
     <h4 class="modal-title">Editar Actividad</h4>
   </div>
   <div class="modal-body">
     <form [formGroup]="form" (ngSubmit)="guardarActividad()">
-        <div class="form-group">
-            <label for="descripcion">Descripcion:</label>
-            <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
-        </div>
-        <div class="form-group">
-          <label for="prioridad">Prioridad:</label>
-          <select class="form-control" id="prioridad" formControlName="prioridad">
-            <option *ngFor="let prioridad of prioridades" [value]="prioridad">{{ prioridad }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="zona">Zona:</label>
-          <select class="form-control" id="zona" formControlName="zona">
-            <option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-            <label for="direccion">Direccion:</label>
-            <input type="text" class="form-control" id="direccion" formControlName="direccion">
-        </div>
+      <div class="form-group">
+        <label for="descripcion">Descripcion:</label>
+        <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+      </div>
+      <div class="form-group">
+        <label for="prioridad">Prioridad:</label>
+        <select class="form-control" id="prioridad" formControlName="prioridad">
+          <option *ngFor="let prioridad of prioridades" [value]="prioridad">{{ prioridad }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="zona">Zona:</label>
+        <select class="form-control" id="zona" formControlName="zona">
+          <option *ngFor="let zona of zonas" [value]="zona">{{ zona }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="direccion">Direccion:</label>
+        <input type="text" class="form-control" id="direccion" formControlName="direccion">
+      </div>
     </form>
     <div class="button-group">
       <button pButton type="submit" label="Guardar"></button>
       <button pButton type="button" label="Cancelar" (click)="visible = false"></button>
     </div>
   </div>
-  
 </p-dialog>

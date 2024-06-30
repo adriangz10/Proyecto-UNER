@@ -10,7 +10,7 @@ import { Busqueda } from '../../interface/busqueda';
 import { Subject, debounceTime, switchMap } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { EditarActividadComponent } from '../editar-actividad/editar-actividad.component'; 
+import { EditarActividadComponent } from '../editar-actividad/editar-actividad.component';
 
 interface Column {
   field: string;
@@ -29,10 +29,10 @@ interface Column {
     RatingModule,
     DialogModule,
     ButtonModule,
-    EditarActividadComponent 
+    EditarActividadComponent,
   ],
   templateUrl: './tabla-actividades.component.html',
-  styleUrls: ['./tabla-actividades.component.css'] 
+  styleUrls: ['./tabla-actividades.component.css'],
 })
 export class TablaActividadesComponent implements OnInit {
   actividades!: Actividades[];
@@ -43,7 +43,7 @@ export class TablaActividadesComponent implements OnInit {
   visible: boolean = false;
 
   mostrarEditarActividad = false;
-  actividadSeleccionada!: Actividades; 
+  actividadSeleccionada!: Actividades;
 
   constructor(private activitiService: ActivitiService) {}
 
@@ -56,21 +56,27 @@ export class TablaActividadesComponent implements OnInit {
       { field: 'prioridad', header: 'Prioridad' },
       { field: 'estado', header: 'Estado' },
       { field: 'zona', header: 'Zona' },
-      { field: 'direccion', header: 'Dirección' }
+      { field: 'direccion', header: 'Dirección' },
     ];
 
     this.estados = [
       { label: 'Activo', value: 'activo' },
       { label: 'Inactivo', value: 'inactivo' },
-      { label: 'Pendiente', value: 'pendiente' }
+      { label: 'Pendiente', value: 'pendiente' },
     ];
 
-    this.searchSubject.pipe(
-      debounceTime(300),
-      switchMap(id => id ? this.activitiService.getActividadesId(id) : this.activitiService.getActividades())
-    ).subscribe((data) => {
-      this.actividades = Array.isArray(data) ? data : [data];
-    });
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        switchMap((id) =>
+          id
+            ? this.activitiService.getActividadesId(id)
+            : this.activitiService.getActividades()
+        )
+      )
+      .subscribe((data) => {
+        this.actividades = Array.isArray(data) ? data : [data];
+      });
     this.searchSubject.next('');
   }
 
@@ -97,8 +103,8 @@ export class TablaActividadesComponent implements OnInit {
   }
 
   onActividadEditada(): void {
-    this.getActividades(); 
-    this.mostrarEditarActividad = false; 
+    this.getActividades();
+    this.mostrarEditarActividad = false;
   }
 
   onSearch(event: Event): void {

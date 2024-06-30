@@ -11,7 +11,6 @@ import { TransportModalComponent } from '../modals/Transport-modal-component';
 import { Transporte } from '../../interface/transport.interface';
 import { transporteService } from '../../services/transport.service';
 
-
 @Component({
   selector: 'app-actividades-transportista',
   standalone: true,
@@ -26,7 +25,7 @@ import { transporteService } from '../../services/transport.service';
     TransportModalComponent,
   ],
   templateUrl: './actividades-transportista.component.html',
-  styleUrls: ['./actividades-transportista.component.css']
+  styleUrls: ['./actividades-transportista.component.css'],
 })
 export class ActividadesTransportistaComponent implements OnInit {
   transportes: Transporte[] = [];
@@ -40,7 +39,7 @@ export class ActividadesTransportistaComponent implements OnInit {
   }
 
   loadTransportes() {
-    this.transporteService.getTransporte().subscribe(data => {
+    this.transporteService.getTransporte().subscribe((data) => {
       this.transportes = data;
     });
   }
@@ -52,11 +51,13 @@ export class ActividadesTransportistaComponent implements OnInit {
 
   completeTransporte(transporte: Transporte) {
     transporte.estado = 'finalizado';
-    this.transporteService.updateTransporte(transporte.id, { estado: 'finalizado' }).subscribe(() => {
-      this.loadTransportes();
-      this.displayModal = false;
-      this.selectedTransport = null;
-    });
+    this.transporteService
+      .updateTransporte(transporte.id, { estado: 'finalizado' })
+      .subscribe(() => {
+        this.loadTransportes();
+        this.displayModal = false;
+        this.selectedTransport = null;
+      });
   }
 
   closeModal() {
@@ -65,11 +66,10 @@ export class ActividadesTransportistaComponent implements OnInit {
   }
 
   get enviosPendientes() {
-    return this.transportes.filter(t => t.estado === 'pendiente');
+    return this.transportes.filter((t) => t.estado === 'pendiente');
   }
 
   get enviosCompletados() {
-    return this.transportes.filter(t => t.estado === 'finalizado');
+    return this.transportes.filter((t) => t.estado === 'finalizado');
   }
-
 }

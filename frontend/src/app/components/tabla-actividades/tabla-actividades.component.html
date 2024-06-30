@@ -2,13 +2,31 @@
   <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (input)="onSearch($event)">
 </div>
 <div *ngIf="actividades">
-  <p-table [value]="actividades" [paginator]="true" [rows]="12">
-    <ng-template pTemplate="header">
+  <p-table [value]="actividades" [paginator]="true" [rows]="12" [tableStyle]="{'min-width': '50rem'}"
+    sortMode="multiple">
+    <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of cols">
-          {{ col.header }}
+        <th pSortableColumn="id">
+          ID <p-sortIcon field="id" />
         </th>
-        <th>Acciones</th>
+        <th pSortableColumn="Descripción">
+          Descripción <p-sortIcon field="Descripción" />
+        </th>
+        <th pSortableColumn="Prioridad">
+          Prioridad <p-sortIcon field="Prioridad" />
+        </th>
+        <th pSortableColumn="Estado">
+          Estado <p-sortIcon field="Estado" />
+        </th>
+        <th pSortableColumn="Zona">
+          Zona <p-sortIcon field="Zona" />
+        </th>
+        <th pSortableColumn="Dirección">
+          Dirección <p-sortIcon field="Dirección" />
+        </th>
+        <th>
+          Acciones
+        </th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -25,8 +43,6 @@
   </p-table>
 </div>
 
-<app-editar-actividad
-  [(visible)]="mostrarEditarActividad"
-  [actividad]="actividadSeleccionada"
+<app-editar-actividad [(visible)]="mostrarEditarActividad" [actividad]="actividadSeleccionada"
   (actividadEditada)="onActividadEditada()">
 </app-editar-actividad>

@@ -7,29 +7,26 @@ import { RolesEnum } from './enums/roles.enum';
 import { ActividadesTransportistaComponent } from './components/gestion-repartidor/actividades-trasnportista.component';
 
 export const routes: Routes = [
-    {
-    path:'login',
+  {
+    path: 'login',
     component: LoginComponent,
-   
-    
-    },
-    {
-        path: 'admin',
-        component: GestionAdminComponent,
-        canMatch:[loginGuard],
-        canActivate:[rolesGuard],
-        data: { role: RolesEnum.administrador }
-      },
-      {
-        path: 'repartidor',
-        component: ActividadesTransportistaComponent,
-        canMatch:[loginGuard],
-        canActivate:[rolesGuard],
-        data: { role: RolesEnum.repartidor }
-      },
-    {
-        path:'**',
-        redirectTo: 'login'
-    },
-
+  },
+  {
+    path: 'admin',
+    component: GestionAdminComponent,
+    canMatch: [loginGuard],
+    canActivate: [rolesGuard],
+    data: { role: RolesEnum.administrador },
+  },
+  {
+    path: 'repartidor',
+    component: ActividadesTransportistaComponent,
+    canMatch: [loginGuard],
+    canActivate: [rolesGuard],
+    data: { role: RolesEnum.repartidor },
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+  },
 ];

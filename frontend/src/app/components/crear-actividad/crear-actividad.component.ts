@@ -16,7 +16,13 @@ import { PrioridadActividadEnum } from '../../enums/prioridad.actividad.enum';
 @Component({
   selector: 'app-crear-actividad',
   standalone: true,
-  imports: [DialogModule, ButtonModule, InputTextModule, FormsModule, CommonModule],
+  imports: [
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+    FormsModule,
+    CommonModule,
+  ],
   templateUrl: './crear-actividad.component.html',
   styleUrls: ['./crear-actividad.component.css'],
 })
@@ -26,9 +32,9 @@ export class CrearActividadComponent {
   paquete: Paquete = {
     descripcion: '',
     prioridad: undefined,
-    zona: ZonaEnum.A  ,
+    zona: ZonaEnum.A,
     direccion: '',
-    id_usuario_actual: ''
+    id_usuario_actual: '',
   };
 
   usuariosZona: Usuario[] = [];
@@ -37,18 +43,23 @@ export class CrearActividadComponent {
   zonas = Object.values(ZonaEnum);
   actividadesSubscription?: Subscription;
 
-  constructor(private activitiService: ActivitiService, private usuarioService: UsuarioService) {}
+  constructor(
+    private activitiService: ActivitiService,
+    private usuarioService: UsuarioService
+  ) {}
 
-  async seleccionarZona(zona:ZonaEnum) {
+  async seleccionarZona(zona: ZonaEnum) {
     if (zona !== null && zona !== undefined) {
-      this.usuariosSubscription = this.usuarioService.getUsuariosZona(zona).subscribe(
-        (usuarios: Usuario[]) => {
-          this.usuariosZona = usuarios;
-        },
-        (error) => {
-          console.error('Error al obtener usuarios:', error);
-        }
-      );
+      this.usuariosSubscription = this.usuarioService
+        .getUsuariosZona(zona)
+        .subscribe(
+          (usuarios: Usuario[]) => {
+            this.usuariosZona = usuarios;
+          },
+          (error) => {
+            console.error('Error al obtener usuarios:', error);
+          }
+        );
     } else {
       this.usuariosZona = [];
     }

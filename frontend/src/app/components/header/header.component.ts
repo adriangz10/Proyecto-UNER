@@ -8,14 +8,13 @@ import { Usuario } from '../../interface/usuarios.interface';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
-
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [ButtonModule, DialogModule, CommonModule, ToastModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class HeaderComponent implements OnInit {
   displayUserModal: boolean = false;
@@ -23,9 +22,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private loginService: LoginService,
-    ) {
-    }
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -39,7 +37,7 @@ export class HeaderComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error fetching user data', err);
-        }
+        },
       });
     }
   }

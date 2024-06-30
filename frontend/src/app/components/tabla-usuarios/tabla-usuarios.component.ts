@@ -21,11 +21,20 @@ interface Column {
 @Component({
   selector: 'app-tabla-usuarios',
   standalone: true,
-  imports: [TableModule, TagModule, CommonModule, FormsModule, RatingModule, CrearUsuarioComponent, EditarUsuarioComponent, DialogModule, ButtonModule],
+  imports: [
+    TableModule,
+    TagModule,
+    CommonModule,
+    FormsModule,
+    RatingModule,
+    CrearUsuarioComponent,
+    EditarUsuarioComponent,
+    DialogModule,
+    ButtonModule,
+  ],
   templateUrl: './tabla-usuarios.component.html',
-  styleUrl: './tabla-usuarios.component.css'
+  styleUrl: './tabla-usuarios.component.css',
 })
-
 export class TablaUsuariosComponent implements OnInit {
   usuarios!: Usuario[];
 
@@ -33,7 +42,7 @@ export class TablaUsuariosComponent implements OnInit {
 
   mostrarEditarUsuario = false;
 
-  usuarioSeleccionado! : Usuario;
+  usuarioSeleccionado!: Usuario;
 
   cols!: Column[];
 
@@ -48,7 +57,6 @@ export class TablaUsuariosComponent implements OnInit {
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
-
     this.getUsuarios();
 
     this.cols = [
@@ -62,26 +70,33 @@ export class TablaUsuariosComponent implements OnInit {
       { field: 'zona', header: 'Zona' },
     ];
 
-    this.searchSubject.pipe(
-      debounceTime(300),
-      switchMap(id => id ? this.usuarioService.getUsuariosId(id) : this.usuarioService.getUsuarios())
-    ).subscribe((data) => {
-      this.usuarios = Array.isArray(data) ? data : [data];
-    });
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        switchMap((id) =>
+          id
+            ? this.usuarioService.getUsuariosId(id)
+            : this.usuarioService.getUsuarios()
+        )
+      )
+      .subscribe((data) => {
+        this.usuarios = Array.isArray(data) ? data : [data];
+      });
     this.searchSubject.next('');
   }
 
   getUsuarios(): void {
     this.usuarioService.getUsuarios().subscribe((data) => {
-      (data);
+      data;
       this.usuarios = data;
     });
   }
 
   deleteActividad(id: number): void {
-    this.usuarioService.deleteUsuario(id).subscribe(() => {
-      this.usuarios = this.usuarios.filter((item) => item.id !== id);
-    });
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario?'))
+      this.usuarioService.deleteUsuario(id).subscribe(() => {
+        this.usuarios = this.usuarios.filter((item) => item.id !== id);
+      });
   }
 
   updateUsuario(usuario: Usuario): void {
@@ -102,5 +117,4 @@ export class TablaUsuariosComponent implements OnInit {
   mostrarModalCrearUsuario(): void {
     this.mostrarCrearUsuario = true;
   }
-
-} 
+}
