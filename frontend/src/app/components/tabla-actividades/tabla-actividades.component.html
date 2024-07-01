@@ -1,31 +1,83 @@
+<!-- <div class="card">
+  <p-table #dt [columns]="cols" [value]="actividades" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">{{ col.header }}</th>
+      </tr>
+      <tr>
+        <th *ngFor="let col of columns">
+          <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
+        <td>
+          <button pButton type="button" icon="pi pi-pencil" (click)="editarActividad(rowData)"></button>
+          <button pButton type="button" icon="pi pi-trash" (click)="confirmarEliminarActividad(rowData.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<app-editar-actividad [(visible)]="mostrarEditarActividad" [actividad]="actividadSeleccionada"
+  (actividadEditada)="onActividadEditada()">
+</app-editar-actividad> -->
+
+
 <div class="search-container">
   <input type="text" [(ngModel)]="parametroBusqueda.id" placeholder="Buscar por ID" (input)="onSearch($event)">
 </div>
 <div *ngIf="actividades">
-  <p-table [value]="actividades" [paginator]="true" [rows]="12" [tableStyle]="{'min-width': '50rem'}"
-    sortMode="multiple">
+  <p-table [value]="actividades" [paginator]="true" [rows]="12" [tableStyle]="{'min-width': '50rem'}" sortMode="multiple">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th pSortableColumn="id">
           ID <p-sortIcon field="id" />
         </th>
-        <th pSortableColumn="Descripción">
-          Descripción <p-sortIcon field="Descripción" />
+        <th pSortableColumn="descripcion">
+          Descripción <p-sortIcon field="descripcion" />
         </th>
-        <th pSortableColumn="Prioridad">
-          Prioridad <p-sortIcon field="Prioridad" />
+        <th pSortableColumn="prioridad">
+          Prioridad <p-sortIcon field="prioridad" />
         </th>
-        <th pSortableColumn="Estado">
-          Estado <p-sortIcon field="Estado" />
+        <th pSortableColumn="estado">
+          Estado <p-sortIcon field="estado" />
         </th>
-        <th pSortableColumn="Zona">
-          Zona <p-sortIcon field="Zona" />
+        <th pSortableColumn="zona">
+          Zona <p-sortIcon field="zona" />  
         </th>
-        <th pSortableColumn="Dirección">
-          Dirección <p-sortIcon field="Dirección" />
+        <th pSortableColumn="direccion">
+          Dirección <p-sortIcon field="direccion" />
         </th>
         <th>
           Acciones
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <input pInputText (input)="applyFilter($event, 'id', matchModeOptions[0].value)" placeholder="Filtrar ID" />
+        </th>
+        <th>
+          <input pInputText (input)="applyFilter($event, 'descripcion', matchModeOptions[1].value)" placeholder="Filtrar Descripción" />
+        </th>
+        <th>
+          <input pInputText (input)="applyFilter($event, 'prioridad', matchModeOptions[2].value)" placeholder="Filtrar Prioridad" />
+        </th>
+        <th>
+          <input pInputText (input)="applyFilter($event, 'estado', matchModeOptions[1].value)" placeholder="Filtrar Estado" />
+        </th>
+        <th>
+          <input pInputText (input)="applyFilter($event, 'zona', matchModeOptions[1].value)" placeholder="Filtrar Zona" />
+        </th>
+        <th>
+          <input pInputText (input)="applyFilter($event, 'direccion', matchModeOptions[1].value)" placeholder="Filtrar Dirección" />
+        </th>
+        <th>
+
         </th>
       </tr>
     </ng-template>

@@ -11,6 +11,7 @@ import { Subject, debounceTime, switchMap } from 'rxjs';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { EditarActividadComponent } from '../editar-actividad/editar-actividad.component';
+import { FilterService, FilterMatchMode, SelectItem } from 'primeng/api';
 
 interface Column {
   field: string;
@@ -31,11 +32,13 @@ interface Column {
     ButtonModule,
     EditarActividadComponent,
   ],
+  providers: [FilterService],
   templateUrl: './tabla-actividades.component.html',
   styleUrls: ['./tabla-actividades.component.css'],
 })
 export class TablaActividadesComponent implements OnInit {
   actividades!: Actividades[];
+  allActividades!: Actividades[]; // Copia original de los datos
   cols!: Column[];
   estados!: any[];
   parametroBusqueda: Busqueda = { id: '' };
@@ -45,7 +48,9 @@ export class TablaActividadesComponent implements OnInit {
   mostrarEditarActividad = false;
   actividadSeleccionada!: Actividades;
 
-  constructor(private activitiService: ActivitiService) {}
+  matchModeOptions!: SelectItem[];
+
+  constructor(private activitiService: ActivitiService, private filterService: FilterService) {}
 
   ngOnInit(): void {
     this.getActividades();
@@ -63,6 +68,13 @@ export class TablaActividadesComponent implements OnInit {
       { label: 'Activo', value: 'activo' },
       { label: 'Inactivo', value: 'inactivo' },
       { label: 'Pendiente', value: 'pendiente' },
+    ];
+
+    this.matchModeOptions = [
+      { label: 'Comienza con', value: FilterMatchMode.STARTS_WITH },
+      { label: 'Contiene', value: FilterMatchMode.CONTAINS },
+      { label: 'Termina con', value: FilterMatchMode.ENDS_WITH },
+      { label: 'Igual a', value: FilterMatchMode.EQUALS }
     ];
 
     this.searchSubject
@@ -83,14 +95,17 @@ export class TablaActividadesComponent implements OnInit {
   getActividades(): void {
     this.activitiService.getActividades().subscribe((data) => {
       this.actividades = data;
+      this.allActividades = [...data];
     });
   }
 
   deleteActividad(id: string): void {
     this.activitiService.deleteActividad(id).subscribe(() => {
       this.actividades = this.actividades.filter((item) => item.id !== id);
+      this.allActividades = this.allActividades.filter((item) => item.id !== id);
     });
   }
+
   confirmarEliminarActividad(id: string): void {
     if (confirm('¿Estás seguro de que quieres eliminar esta actividad?')) {
       this.deleteActividad(id);
@@ -111,4 +126,16 @@ export class TablaActividadesComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.searchSubject.next(inputElement.value);
   }
+
+  applyFilter(event: any, field: string, matchMode: string): void {
+    const value = event.target.value.trim();
+    if (value === '') {
+      this.actividades = [...this.allActividades];
+    } else {
+      this.actividades = this.allActividades.filter((actividad: Record<string, any>) =>
+        this.filterService.filters[matchMode](actividad[field], value)
+      );
+    }
+  }
 }
+

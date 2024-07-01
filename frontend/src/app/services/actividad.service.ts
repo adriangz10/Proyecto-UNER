@@ -40,14 +40,4 @@ export class ActivitiService {
     const url = `${environment.apiUrl}/actividades/${id}`;
     return this.http.put(url, actividad);
   }
-
-  getActividadesPrioridad(): Observable<{ prioridad: string }[]> {
-    return this.http
-      .get<Actividades[]>(`${environment.apiUrl}/actividades`)
-      .pipe(
-        map((actividades) =>
-          actividades.map((actividad) => ({ prioridad: actividad.prioridad }))
-        )
-      );
-  }
 }
